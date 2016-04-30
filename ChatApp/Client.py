@@ -1,45 +1,32 @@
-# Client program
+# Server program
 
 from socket import *
 import Utils as Util
 
+
 # Set the socket parameters
 host = "localhost"
-
 port = 21567
-
-buf = 1024
-
+buf = 8192
 addr = (host,port)
 
-# Create socket
+# Create socket and bind to address
 UDPSock = socket(AF_INET,SOCK_DGRAM)
 
-def_msg = "===Enter message to send to server===";
-print "",def_msg
 
-# Send messages
-while (1):
-
-	data = raw_input('>> ')
-
-	if not data:
-
+while 1:
+	#Send Message
+	datatosend = raw_input('>> ')
+	if not datatosend:
 		break
-
 	else:
-		temp = Util.message()
-		temp.version = 1
-		temp.source = "A1DB1329"
-		temp.destination = "A1DB1329"
-		temp.type = 4
-		temp.flag = 255
-		temp.hop_count = 15
-		temp.payload = data
-		packet = Util.Pack(temp)
-		if(UDPSock.sendto(temp,addr)):
+		messagetosend = Util.ChunkMessages(datatosend)
+		for message in messagetosend:
+			if (UDPSock.sendto(message, addr)):
+				print "Sending message '", message, "'....."
+	#End Send Message
 
-			print "Sending message '",data,"'....."
+
 
 # Close socket
 UDPSock.close()
