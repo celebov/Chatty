@@ -2,20 +2,25 @@ from ctypes import *
 from struct import *
 from socket import *
 import binascii
-from scapy.all import *
+import scapy.all
+import gnupg
+
+gpg = gnupg.GPG(gnupghome='/home/neslic/.gnupg') #TYPE YOUR OWN .GNUPG PATH
+gpg.encoding = 'utf-8'
 
 class message(Structure):
     _pack_ = 1
     _fields_ = [
         ("version", c_byte ),
-        ("source", c_char * 8),
-        ("destination", c_char * 8),
+        ("source", c_char * 4),
+        ("destination", c_char * 4),
         ("type", c_byte ),
         ("flag", c_byte ),
         ("hop_count", c_byte ),
         ("length", c_byte),
-        ("payload", c_char * 79)
+        ("payload", c_char * 87)
     ]
+
 
 def Chunk(lst, n):
     "Yield successive n-sized chunks from lst"
@@ -65,8 +70,8 @@ def PrepareMessage(version, source, destination, type, flag, hop_count):
 def PrepareRandomMessage(payload, flag):
     Message = message()
     Message.version = 1
-    Message.source = "A1DB1329"
-    Message.destination = "A1DB1329"
+    Message.source = "A1DB"
+    Message.destination = "A1DB"
     Message.type = 4
     Message.flag = flag
     Message.hop_count = 15
@@ -77,7 +82,7 @@ def PrepareRandomMessage(payload, flag):
 
 
 def ChunkMessages(payload):
-    chunklist = Chunk(payload, 79)
+    chunklist = Chunk(payload, 87)
     MessageList = []
 
     for chunks,islast in chunklist:
@@ -97,3 +102,11 @@ def ConcatMessages(MessageList):
         if message.flag == 1:
             break
     return Final_Text
+
+def sendEncMsg(challenge,rec_id, myKeyid,myPP):
+    enc_aut_msg = str(gpg.encrypt(data=challenge, recipients=rec_id, sign=myKeyid, passphrase=myPP))
+    return enc_aut_msg
+
+def decMsg(enc_aut_msg,recPP):
+    dec_msg = gpg.decrypt(enc_aut_msg,passphrase=recPP)
+    return dec_msg
