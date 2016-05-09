@@ -170,14 +170,14 @@ def sessionKeyControl(recUuId,UDPSock,addr):
     curs.execute("SELECT sessionKey FROM sessionKeyTable WHERE UUID = ?", (recUuId,))
     record = curs.fetchall()
     if len(record) == 0:
-        SessId = raw_input("Enter a session key for user %s >>" %recUuId)
+        SessId = raw_input("Enter a session key for user %s >>" %recUuId) #urandom(blockSize)
         encSessId = PrepareAuthenticationPayload(SessId)
         SendMessage(UDPSock, encSessId, addr)
         curs.execute("INSERT INTO sessionKeyTable (sessionKey, UUID) VALUES (?,?)", (SessId, recUuId,))
         conn.commit()
         return SessId
     else:
-        return curs.fetchone()
+        return record
     curs.close()
 
 def recv_timeout(the_socket, timeout=2):
