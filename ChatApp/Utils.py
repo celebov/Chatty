@@ -8,7 +8,7 @@ import binascii,time,sys,scapy.all,gnupg,os,TableScript
 
 
 #gpg paramaters
-gpg = gnupg.GPG(gnupghome='/home/neslic/.gnupg') #TYPE YOUR OWN .GNUPG PATH
+gpg = gnupg.GPG(gnupghome='/home/raziel/.gnupg') #TYPE YOUR OWN .GNUPG PATH
 gpg.encoding = 'utf-8'
 
 #AES parameters
@@ -24,11 +24,11 @@ class message(Structure):
     _pack_ = 1
     _fields_ = [
         ("version", c_int8 ),
-        ("source", c_char * 8),
-        ("destination", c_char * 8),
+        ("source", c_byte * 4),
+        ("destination", c_byte * 4),
         ("type", c_int8 ),
         ("flag", c_int8 ),
-        ("hop_count", c_int8  ),
+        ("hop_count", c_int8 ),
         ("length", c_int8),
         ("payload", c_char * 87)
     ]
@@ -71,8 +71,8 @@ def UnpackArray(messagearray):
 def PrepareMessage(version, source, destination, type, flag, hop_count):
     Message = message()
     Message.version = version
-    Message.source = source
-    Message.destination = destination
+    Message.source = (c_byte * 4).from_buffer(bytearray(source))
+    Message.destination = (c_byte * 4).from_buffer(bytearray(destination))
     Message.type = type
     Message.flag = flag
     Message.hop_count = hop_count
@@ -82,8 +82,8 @@ def PrepareMessage(version, source, destination, type, flag, hop_count):
 def PrepareRandomMessage(payload, flag):
     Message = message()
     Message.version = 1
-    Message.source = "A1DB"
-    Message.destination = "A1DB"
+    Message.source = (c_byte * 4).from_buffer(bytearray(RoutingTable[0]['UUID']))
+    Message.destination = (c_byte * 4).from_buffer(bytearray(RoutingTable[0]['UUID']))
     Message.type = 64
     Message.flag = flag
     Message.hop_count = 15
@@ -94,8 +94,8 @@ def PrepareRandomMessage(payload, flag):
 def PrepareFileMessage(payload, flag):
     Message = message()
     Message.version = 1
-    Message.source = "A1DB"
-    Message.destination = "A1DB"
+    Message.source = (c_byte * 4).from_buffer(bytearray(RoutingTable[0]['UUID']))
+    Message.destination = (c_byte * 4).from_buffer(bytearray(RoutingTable[0]['UUID']))
     Message.type = 16
     Message.flag = flag
     Message.hop_count = 15
@@ -355,6 +355,6 @@ def Help():
     print "#To send text message, enter the desired text directly."
 
 RoutingTable = [
-	{'UUID':'77F0F43B', 'ViaUUID':'77F0F43B', 'Cost': 0},
+	{'UUID':'EC8AF480', 'ViaUUID':'EC8AF480', 'Cost': 0},
 	{'UUID':'A1DB1329', 'ViaUUID':'A1DB1329', 'Cost': 3}
 	]

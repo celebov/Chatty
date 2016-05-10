@@ -12,7 +12,7 @@ addr = (host, port)
 # Create socket and bind to address
 UDPSock = socket(AF_INET, SOCK_DGRAM)
 
-remote_host = "192.168.0.106"
+remote_host = "127.0.0.1"
 # 192.168.0.23
 remote_port = 9999
 
