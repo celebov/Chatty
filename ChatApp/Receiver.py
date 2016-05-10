@@ -17,7 +17,7 @@ import time
 # buf = 1024
 # addr = (host, port)
 
-host = "192.168.1.114"
+host = "192.168.1.106"
 port = 9999
 buf = 1024
 addr = (host, port)
@@ -34,9 +34,11 @@ while 1:
         break
     else:
         received_messages = Util.UnpackArray(received_data)
+
         if received_messages[0].type == 16:
             Util.WritePacketsToFile(received_messages)
         elif received_messages[0].type == 64:
+            Util.Get_RoutingTable(Util.ConcatMessages(received_messages), received_messages[0].source)
             print "Received message '", Util.ConcatMessages(received_messages), "'"
             # End Receiving Message
 # Close socket

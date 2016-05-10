@@ -8,7 +8,7 @@ import binascii,time,sys,scapy.all,gnupg,os,TableScript
 
 
 #gpg paramaters
-gpg = gnupg.GPG(gnupghome='/home/raziel/.gnupg') #TYPE YOUR OWN .GNUPG PATH
+gpg = gnupg.GPG(gnupghome='/home/neslic/.gnupg') #TYPE YOUR OWN .GNUPG PATH
 gpg.encoding = 'utf-8'
 
 #AES parameters
@@ -24,8 +24,8 @@ class message(Structure):
     _pack_ = 1
     _fields_ = [
         ("version", c_int8 ),
-        ("source", c_char * 4),
-        ("destination", c_char * 4),
+        ("source", c_char * 8),
+        ("destination", c_char * 8),
         ("type", c_int8 ),
         ("flag", c_int8 ),
         ("hop_count", c_int8  ),
@@ -334,17 +334,20 @@ def Send_RoutingTable(socket,addr):
 def Get_RoutingTable(data, sender_UUID):
     received_RT = eval(data)
     for received_line in enumerate(received_RT):
-        for existing_line in enumerate(RoutingTable):
-            if received_line[0]['UUID'] == existing_line[0]['UUID']:
-                if received_line[0]['Cost'] + 1 < existing_line[0]['Cost']:
-                    existing_line[0]['ViaUUID'] = sender_UUID
-            else:
-                newline = {'UUID': received_line[0]['UUID'], 'ViaUUID': sender_UUID, 'Cost': received_line[0]['Cost'] + 1}
-                RoutingTable.append(dict(newline))
+        try:
+            line = (item for item in RoutingTable if item["UUID"] == received_line[1]['UUID']).next()
+        except:
+            line = None
+
+        if line is not None:
+            if received_line[1]['Cost'] + 1 < line['Cost']:
+                line['ViaUUID'] = sender_UUID
+                line['Cost'] = received_line[1]['Cost'] + 1
+        else:
+            newline = {'UUID': received_line[1]['UUID'], 'ViaUUID': sender_UUID, 'Cost': received_line[1]['Cost'] + 1}
+            RoutingTable.append(dict(newline))
     for line in enumerate(RoutingTable):
         print line
-
-
 
 
 def Help():
@@ -352,6 +355,6 @@ def Help():
     print "#To send text message, enter the desired text directly."
 
 RoutingTable = [
-	{'UUID':'EC8AF480', 'ViaUUID':'EC8AF480', 'Cost': 0},
-	{'UUID':'A1DB1329', 'ViaUUID':'A1DB1329', 'Cost': 1}
+	{'UUID':'77F0F43B', 'ViaUUID':'77F0F43B', 'Cost': 0},
+	{'UUID':'A1DB1329', 'ViaUUID':'A1DB1329', 'Cost': 3}
 	]
