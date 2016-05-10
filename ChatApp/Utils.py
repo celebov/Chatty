@@ -4,11 +4,11 @@ from struct import *
 from socket import *
 from os import urandom
 from Crypto.Cipher import AES
-import binascii,time,sys,scapy.all,gnupg,os
+import binascii,time,sys,scapy.all,gnupg,os,TableScript
 
 
 #gpg paramaters
-gpg = gnupg.GPG(gnupghome='/home/neslic/.gnupg') #TYPE YOUR OWN .GNUPG PATH
+gpg = gnupg.GPG(gnupghome='/home/raziel/.gnupg') #TYPE YOUR OWN .GNUPG PATH
 gpg.encoding = 'utf-8'
 
 #AES parameters
@@ -23,13 +23,13 @@ unpadStr = lambda s: s.rstrip(padValue)
 class message(Structure):
     _pack_ = 1
     _fields_ = [
-        ("version", c_byte ),
+        ("version", c_int8 ),
         ("source", c_char * 4),
         ("destination", c_char * 4),
-        ("type", c_byte ),
-        ("flag", c_byte ),
-        ("hop_count", c_byte ),
-        ("length", c_byte),
+        ("type", c_int8 ),
+        ("flag", c_int8 ),
+        ("hop_count", c_int8  ),
+        ("length", c_int8),
         ("payload", c_char * 87)
     ]
 
@@ -118,6 +118,8 @@ def SendMessage(socket, payload, addr):
             print "Sending message '", message, "'....."
 
 def ChunkMessages(payload):
+
+    payload = str(payload)
     chunklist = Chunk(payload, message.payload.size)
     MessageList = []
 
@@ -170,7 +172,7 @@ def sessionKeyControl(recUuId,UDPSock,addr):
     curs.execute("SELECT sessionKey FROM sessionKeyTable WHERE UUID = ?", (recUuId,))
     record = curs.fetchall()
     if len(record) == 0:
-        SessId = raw_input("Enter a session key for user %s >>" %recUuId) #urandom(blockSize)
+        SessId = raw_input("Enter a session key for user %s >>" %recUuId)
         encSessId = PrepareAuthenticationPayload(SessId)
         SendMessage(UDPSock, encSessId, addr)
         curs.execute("INSERT INTO sessionKeyTable (sessionKey, UUID) VALUES (?,?)", (SessId, recUuId,))
@@ -317,6 +319,39 @@ def Port_Input_Validator():
     else:
         print "Please enter a valid port number."
         Port_Input_Validator()
+
+def SearchDictionary(values, searchFor):
+    for k in values:
+        for v in values[k]:
+            if searchFor in v:
+                return k
+    return None
+
+def Send_RoutingTable(socket,addr):
+    SendMessage(socket,RoutingTable,addr);
+    print "Routing Table Sent."
+
+def Get_RoutingTable(data, sender_UUID):
+    received_RT = eval(data)
+    for received_line in enumerate(received_RT):
+        for existing_line in enumerate(RoutingTable):
+            if received_line[0]['UUID'] == existing_line[0]['UUID']:
+                if received_line[0]['Cost'] + 1 < existing_line[0]['Cost']:
+                    existing_line[0]['ViaUUID'] = sender_UUID
+            else:
+                newline = {'UUID': received_line[0]['UUID'], 'ViaUUID': sender_UUID, 'Cost': received_line[0]['Cost'] + 1}
+                RoutingTable.append(dict(newline))
+    for line in enumerate(RoutingTable):
+        print line
+
+
+
+
 def Help():
     print "#To send file => #FILE <path> "
     print "#To send text message, enter the desired text directly."
+
+RoutingTable = [
+	{'UUID':'EC8AF480', 'ViaUUID':'EC8AF480', 'Cost': 0},
+	{'UUID':'A1DB1329', 'ViaUUID':'A1DB1329', 'Cost': 1}
+	]

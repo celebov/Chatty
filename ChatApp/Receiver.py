@@ -17,7 +17,7 @@ import time
 # buf = 1024
 # addr = (host, port)
 
-host = "10.176.1.124"
+host = "192.168.1.114"
 port = 9999
 buf = 1024
 addr = (host, port)
@@ -40,6 +40,5 @@ while 1:
             print "Received message '", Util.ConcatMessages(received_messages), "'"
             # End Receiving Message
 # Close socket
-UDPSock.close()
 
 UDPSock.close()
