@@ -17,7 +17,7 @@ import time
 # buf = 1024
 # addr = (host, port)
 
-host = "127.0.0.1"
+host = "192.168.0.30"
 port = 9999
 buf = 1024
 addr = (host, port)
