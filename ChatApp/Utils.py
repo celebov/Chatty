@@ -4,6 +4,7 @@ from struct import *
 from socket import *
 from os import urandom
 from Crypto.Cipher import AES
+import binascii
 import binascii,time,sys,scapy.all,gnupg,os,TableScript
 
 
@@ -71,8 +72,8 @@ def UnpackArray(messagearray):
 def PrepareMessage(version, source, destination, type, flag, hop_count):
     Message = message()
     Message.version = version
-    Message.source = (c_byte * 4).from_buffer(bytearray(source))
-    Message.destination = (c_byte * 4).from_buffer(bytearray(destination))
+    Message.source = (c_byte * 4).from_buffer(bytearray.fromhex(source))
+    Message.destination = (c_byte * 4).from_buffer(bytearray.fromhex(destination))
     Message.type = type
     Message.flag = flag
     Message.hop_count = hop_count
@@ -82,8 +83,8 @@ def PrepareMessage(version, source, destination, type, flag, hop_count):
 def PrepareRandomMessage(payload, flag):
     Message = message()
     Message.version = 1
-    Message.source = (c_byte * 4).from_buffer(bytearray(RoutingTable[0]['UUID']))
-    Message.destination = (c_byte * 4).from_buffer(bytearray(RoutingTable[0]['UUID']))
+    Message.source = (c_byte * 4).from_buffer(bytearray.fromhex(RoutingTable[0]['UUID']))
+    Message.destination = (c_byte * 4).from_buffer(bytearray.fromhex(RoutingTable[0]['UUID']))
     Message.type = 64
     Message.flag = flag
     Message.hop_count = 15
@@ -94,8 +95,8 @@ def PrepareRandomMessage(payload, flag):
 def PrepareFileMessage(payload, flag):
     Message = message()
     Message.version = 1
-    Message.source = (c_byte * 4).from_buffer(bytearray(RoutingTable[0]['UUID']))
-    Message.destination = (c_byte * 4).from_buffer(bytearray(RoutingTable[0]['UUID']))
+    Message.source = (c_byte * 4).from_buffer(bytearray.fromhex(RoutingTable[0]['UUID']))
+    Message.destination = (c_byte * 4).from_buffer(bytearray.fromhex(RoutingTable[0]['UUID']))
     Message.type = 16
     Message.flag = flag
     Message.hop_count = 15
