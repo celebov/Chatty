@@ -2,24 +2,17 @@
 from ctypes import *
 from struct import *
 from socket import *
+from enum import Enum
 from os import urandom
-from Crypto.Cipher import AES
-import binascii
-import binascii,time,sys,scapy.all,gnupg,os,TableScript
+from bitstring import *
+import binascii,time,sys,scapy.all,gnupg,os
 
 
 #gpg paramaters
 gpg = gnupg.GPG(gnupghome='/home/raziel/.gnupg') #TYPE YOUR OWN .GNUPG PATH
 gpg.encoding = 'utf-8'
 
-#AES parameters
-blockSize = 16
-padValue= '#'
-myAESKey = urandom(blockSize)
 
-#AES padding & unpadding part
-padStr = lambda s: s + ((blockSize - len(s) % blockSize) * padValue)
-unpadStr = lambda s: s.rstrip(padValue)
 
 class message(Structure):
     _pack_ = 1
@@ -27,24 +20,26 @@ class message(Structure):
         ("version", c_int8 ),
         ("source", c_byte * 4),
         ("destination", c_byte * 4),
-        ("type", c_int8 ),
-        ("flag", c_int8 ),
+        ("type", c_byte ),
+        ("flag", c_byte ),
         ("hop_count", c_int8 ),
         ("length", c_int8),
         ("payload", c_char * 87)
     ]
 
 
+
+
 def Chunk(lst, n):
     "Yield successive n-sized chunks from lst"
-    for i in xrange(0, len(lst), n):
+    for i in range(0, len(lst), n):
         if len(lst) - i < n:
             yield lst[i:i + n], True
         else :
             yield lst[i:i + n], False
 
 
-def Dump(obj):
+def DumpObject(obj):
    for attr in dir(obj):
        if hasattr( obj, attr ):
            print( "obj.%s = %s" % (attr, getattr(obj, attr)))
@@ -69,22 +64,27 @@ def UnpackArray(messagearray):
         messagelist.append(ctype_instance)
     return messagelist
 
-def PrepareMessage(version, source, destination, type, flag, hop_count):
+def UUIDtoMessageSource(UUID):
+    return (c_byte * 4).from_buffer(bytearray.fromhex(UUID))
+
+
+def PrepareMessage(version, source, destination, type, flag, payload, hop_count):
     Message = message()
     Message.version = version
-    Message.source = (c_byte * 4).from_buffer(bytearray.fromhex(source))
-    Message.destination = (c_byte * 4).from_buffer(bytearray.fromhex(destination))
+    Message.source = source
+    Message.destination = destination
     Message.type = type
     Message.flag = flag
     Message.hop_count = hop_count
+    Message.payload = bytes(payload,'utf8')
     packet = Pack(Message)
     return packet;
 
 def PrepareRandomMessage(payload, flag):
     Message = message()
     Message.version = 1
-    Message.source = (c_byte * 4).from_buffer(bytearray.fromhex(RoutingTable[0]['UUID']))
-    Message.destination = (c_byte * 4).from_buffer(bytearray.fromhex(RoutingTable[0]['UUID']))
+    Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
+    Message.destination = UUIDtoMessageSource(RoutingTable[0]['UUID'])
     Message.type = 64
     Message.flag = flag
     Message.hop_count = 15
@@ -95,41 +95,77 @@ def PrepareRandomMessage(payload, flag):
 def PrepareFileMessage(payload, flag):
     Message = message()
     Message.version = 1
-    Message.source = (c_byte * 4).from_buffer(bytearray.fromhex(RoutingTable[0]['UUID']))
-    Message.destination = (c_byte * 4).from_buffer(bytearray.fromhex(RoutingTable[0]['UUID']))
-    Message.type = 16
+    Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
+    Message.destination = UUIDtoMessageSource(RoutingTable[0]['UUID'])
+    Message.type = 0x01
     Message.flag = flag
     Message.hop_count = 15
     Message.payload = payload
     packet = Pack(Message)
     return packet;
 
-def PrepareAuthenticationPayload(challenge):
-   # challenge = raw_input('Type challenge >> ')
-    rec_id = raw_input('Type recipients public key id >> ')
-    myKeyid = raw_input('Type your private key id >> ')
-    myPP = raw_input('Type your passphrase to sign >> ')
-    AuthMessagetoSend = PGPEncMsg(challenge, rec_id, myKeyid, myPP)
+def Send_AuthMessage(socket,addr):
+    auth_payload = PrepareAuthenticationPayload()
+    destination = user_input = input('>> Destination UUID : ')
+    header = PrepareAuthMessage(None, destination , None)
+    Send_Message(socket, addr, auth_payload, header)
+
+def PrepareAuthenticationPayload():
+    rec_id = KeyIDs[0]['PubID'] #input('Type recipients public key id >> ')
+    myKeyid = gpg.list_keys(True)[0]['fingerprint'][-8:] #Private Key
+    myPP = passphrase
+    AuthMessagetoSend = PGPEncMsg(rec_id, myPP)
     return AuthMessagetoSend;
 
-def SendMessage(socket, payload, addr):
-    messagetosend = ChunkMessages(payload)
+def PGPEncMsg(rec_id, myPP):
+    challenge = os.urandom(16)
+    encrypted_challenge = gpg.encrypt(challenge,rec_id).data
+    signed_encrypted_challenge = gpg.sign(encrypted_challenge, passphrase = myPP).data
+    return str(signed_encrypted_challenge,'utf-8')
+
+def PGPDecMsg(enc_aut_msg,recPP):
+    dec_msg = gpg.decrypt(enc_aut_msg,passphrase=recPP)
+    return dec_msg
+
+
+def PrepareAuthMessage(payload, destination, flag):
+    Message = message()
+    Message.version = 1
+    Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
+    Message.destination = UUIDtoMessageSource(destination)
+    Message.type = MessageTypes.Data.value
+    if flag is None:
+        Message.flag = 0x10
+    else:
+        message.flag = flag
+    Message.hop_count = 15
+    Message.payload = bytes(str(payload), 'utf8')
+    return Message;
+
+
+
+
+
+
+def Send_Message(socket, addr, payload , header):
+    messagetosend = ChunkMessages(payload, header)
     for message in messagetosend:
         if (socket.sendto(message, addr)):
-            print "Sending message '", message, "'....."
+            print("Sending message '", message, "'.....")
 
-def ChunkMessages(payload):
-
-    payload = str(payload)
+def ChunkMessages(payload, header):
+    payload = payload
     chunklist = Chunk(payload, message.payload.size)
     MessageList = []
-
     for chunks,islast in chunklist:
         if islast:
-            Message = PrepareRandomMessage(chunks, 1)
+            header_flag = BitArray(bin=format(header.flag, '08b'))
+            header_flag[7] = 1
+            Message = PrepareMessage(header.version,header.source,header.destination,header.type,header_flag.int,chunks,header.hop_count)
+
             MessageList.append(Message)
         else:
-            Message = PrepareRandomMessage(chunks, 0)
+            Message = PrepareMessage(header.version, header.source, header.destination, header.type, header.flag,chunks, header.hop_count)
             MessageList.append(Message)
 
     return MessageList
@@ -137,51 +173,20 @@ def ChunkMessages(payload):
 def ConcatMessages(MessageList):
     Final_Text = '';
     for message in MessageList:
-        Final_Text = Final_Text + message.payload
+        Final_Text = Final_Text + str(message.payload, 'utf-8')
         if message.flag == 1:
             break
     return Final_Text
 
-def PGPEncMsg(challenge,rec_id, myKeyid,myPP):
-    enc_aut_msg = str(gpg.encrypt(data=challenge, recipients=rec_id, sign=myKeyid, passphrase=myPP))
-    return enc_aut_msg
 
-def PGPDecMsg(enc_aut_msg,recPP):
-    dec_msg = gpg.decrypt(enc_aut_msg,passphrase=recPP)
-    return dec_msg
 
-def AESEncMSg(AESkey, plainMsg):
-    plainMsg = padStr(plainMsg)
-    # document states that IV shall be the first 16 bits of payload
-    iv = plainMsg[:16]
-    cipher = AES.new(AESkey, AES.MODE_CBC, iv)
-    return (iv + cipher.encrypt(plainMsg)).encode("hex")
 
-def AESDecMSg(AESkey, cipherMsg):
-    cipherMsg = cipherMsg.decode("hex")
-    iv = cipherMsg[:16]
-    cipherMsg = cipherMsg[16:]
-    cipher = AES.new(AESkey, AES.MODE_CBC, iv)
-    return cipher.decrypt(cipherMsg)
 
-import sqlite3
-conn = sqlite3.connect('networkTables.db')
-conn.text_factory = str
-curs = conn.cursor()
 
-def sessionKeyControl(recUuId,UDPSock,addr):
-    curs.execute("SELECT sessionKey FROM sessionKeyTable WHERE UUID = ?", (recUuId,))
-    record = curs.fetchall()
-    if len(record) == 0:
-        SessId = raw_input("Enter a session key for user %s >>" %recUuId)
-        encSessId = PrepareAuthenticationPayload(SessId)
-        SendMessage(UDPSock, encSessId, addr)
-        curs.execute("INSERT INTO sessionKeyTable (sessionKey, UUID) VALUES (?,?)", (SessId, recUuId,))
-        conn.commit()
-        return SessId
-    else:
-        return record
-    curs.close()
+
+
+
+
 
 def recv_timeout(the_socket, timeout=2):
     # make socket non blocking
@@ -226,7 +231,7 @@ def recv_flag(the_socket, buf):
     # beginning time
     while 1:
         # if you got some data, then break after timeout
-        if total_data and Unpack(message, total_data[-1]).flag == 1:
+        if total_data and Unpack(message, total_data[-1]).flag == 17:
             break
 
         # recv something
@@ -249,7 +254,7 @@ def Send_File(socket, addr, path):
         while (data):
             Message = PrepareFileMessage(data, 0)
             if (socket.sendto(Message, addr)):
-                print "Sending ..."
+                print("Sending ...")
                 data = f.read(message.payload.size)
                 progress = progress + bar_rate
                 Update_Progress(progress / 100.0)
@@ -257,21 +262,19 @@ def Send_File(socket, addr, path):
         socket.sendto(Message, addr)
         progress = progress + bar_rate
         Update_Progress(progress / 100.0)
-        print "File Sent."
+        print("File Sent.")
     except IOError:
-        print path + " is not valid."
+        print(path + " is not valid.")
         pass
 
-def Send_Auth(socket,addr):
-    auth_payload = PrepareAuthenticationPayload()
-    SendMessage(socket, auth_payload, addr)
+
 
 def WritePacketsToFile(Packets):
     f = open("ChatAppFile", 'wb')
     for packets in Packets:
         f.write(packets.payload)
     f.close()
-    print "File Downloaded"
+    print("File Downloaded")
 
 def Update_Progress(progress):
     barLength = 10 # Modify this to change the length of the progress bar
@@ -314,11 +317,11 @@ def Validate_IPV6(address):
     return True
 
 def Port_Input_Validator():
-    temp = raw_input('>>Port Number: ')
+    temp = input('>>Port Number: ')
     if temp.isdigit():
         return temp
     else:
-        print "Please enter a valid port number."
+        print("Please enter a valid port number.")
         Port_Input_Validator()
 
 def SearchDictionary(values, searchFor):
@@ -329,8 +332,8 @@ def SearchDictionary(values, searchFor):
     return None
 
 def Send_RoutingTable(socket,addr):
-    SendMessage(socket,RoutingTable,addr);
-    print "Routing Table Sent."
+    #SendMessage(socket,RoutingTable,addr);
+    print("Routing Table Sent.")
 
 def Get_RoutingTable(data, sender_UUID):
     received_RT = eval(data)
@@ -348,14 +351,37 @@ def Get_RoutingTable(data, sender_UUID):
             newline = {'UUID': received_line[1]['UUID'], 'ViaUUID': sender_UUID, 'Cost': received_line[1]['Cost'] + 1}
             RoutingTable.append(dict(newline))
     for line in enumerate(RoutingTable):
-        print line
+        print(line)
 
+def Get_AuthMessage(msg,rec_passphrase):
+    decrypted_sign = gpg.decrypt(message=str(msg), passphrase=rec_passphrase)
+    decrypted_data = gpg.decrypt(message=decrypted_sign.data, passphrase= passphrase)
+    print(decrypted_data.data)
 
 def Help():
-    print "#To send file => #FILE <path> "
-    print "#To send text message, enter the desired text directly."
+    print("#To send file => #FILE <path> ")
+    print("#To send text message, enter the desired text directly.")
+
 
 RoutingTable = [
 	{'UUID':'EC8AF480', 'ViaUUID':'EC8AF480', 'Cost': 0},
-	{'UUID':'A1DB1329', 'ViaUUID':'A1DB1329', 'Cost': 3}
 	]
+SessionKey = [
+
+]
+
+KeyIDs =[
+    {'User':'Nesli','PubID': 'CB59737D'}
+         ]
+
+#GNUPG passphrase hardcoded
+passphrase = 'kaan1234'
+
+#MessageType Enum class
+class MessageTypes(Enum):
+    Data = 0x01
+    Control = 0x02
+    Auth = 0x04
+
+
+
