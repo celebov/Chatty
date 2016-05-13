@@ -5,7 +5,7 @@ from socket import *
 from enum import Enum
 from os import urandom
 from bitstring import *
-import binascii,time,sys,scapy.all,gnupg,os
+import binascii,time,sys,gnupg,os
 
 
 #gpg paramaters

@@ -5,7 +5,7 @@ import Utils as Util
 import time
 
 host = "192.168.0.18"
-port = 5555
+port = 6666
 buf = 1024
 addr = (host, port)
 # End Socket Parameters Dynamically
@@ -13,7 +13,7 @@ addr = (host, port)
 UDPSock = socket(AF_INET, SOCK_DGRAM)
 
 remote_host = "192.168.0.27"
-remote_port = 5555
+remote_port = 6666
 
 remote_addr = (remote_host, remote_port)
 
