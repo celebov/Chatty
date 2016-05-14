@@ -67,11 +67,11 @@ def PrepareSocket():
     if len(Connections) == 0:
         port = 6666
         # Host Parameters
-        remote_host = "127.0.0.1"
+        remote_host = "192.168.0.37"
         remote_port = port
         remote_addr = (remote_host, remote_port)
 
-        host = "127.0.0.1"
+        host = "192.168.0.18"
         port = port
         UDPBuff = 1024
         UDPaddr = (host, port)
@@ -234,7 +234,8 @@ def ChunkMessages(payload, header):
     MessageList = []
     if payload is None:
         header_flag = BitArray(bin=format(header.flag, '08b'))
-        header_flag[7] = 1
+        if header.type != MessageTypes.Control.value:
+            header_flag[7] = 1
         Message = PrepareMessage(header.version, header.source, header.destination, header.type, header_flag.int, '',
                                  header.hop_count)
         MessageList.append(Message)
