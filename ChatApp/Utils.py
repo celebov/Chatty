@@ -50,7 +50,7 @@ def getLine():
             return input
     return None
 
-class message(Structure):
+class MessageClass(Structure):
     _pack_ = 1
     _fields_ = [
         ("version", c_int8),
@@ -108,7 +108,7 @@ def UnpackArray(messagearray):
     messagelist = []
     for i in messagearray:
         cstring = create_string_buffer(i)
-        ctype_instance = cast(pointer(cstring), POINTER(message)).contents
+        ctype_instance = cast(pointer(cstring), POINTER(MessageClass)).contents
         messagelist.append(ctype_instance)
     return messagelist
 
@@ -118,7 +118,7 @@ def UUIDtoMessageSource(UUID):
 
 
 def PrepareMessage(version, source, destination, type, flag, payload, hop_count):
-    Message = message()
+    Message = MessageClass()
     Message.version = version
     Message.source = source
     Message.destination = destination
@@ -134,15 +134,15 @@ def PrepareMessage(version, source, destination, type, flag, payload, hop_count)
 
 
 def PrepareRandomMessage(payload, flag):
-    Message = message()
+    Message = MessageClass()
     Message.version = 1
     Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
     Message.destination = UUIDtoMessageSource(RoutingTable[0]['UUID'])
-    Message.type = MessageTypes.Control.value
+    Message.type = MessageTypes.Data.value
     if flag is None:
         Message.flag = 0x10
     else:
-        message.flag = flag
+        Message.flag = flag
     Message.hop_count = 15
     if payload is None:
         Message.payload = bytes('', 'utf8')
@@ -153,7 +153,7 @@ def PrepareRandomMessage(payload, flag):
 
 
 def PrepareFileMessage(payload, flag):
-    Message = message()
+    Message = MessageClass()
     Message.version = 1
     Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
     Message.destination = UUIDtoMessageSource(RoutingTable[0]['UUID'])
@@ -193,7 +193,7 @@ def PGPDecMsg(enc_aut_msg, recPP):
 
 
 def PrepareAuthMessage(payload, destination, flag):
-    Message = message()
+    Message = MessageClass()
     Message.version = 1
     Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
     Message.destination = UUIDtoMessageSource(destination)
@@ -201,7 +201,7 @@ def PrepareAuthMessage(payload, destination, flag):
     if flag is None:
         Message.flag = 0x10
     else:
-        message.flag = flag
+        Message.flag = flag
     Message.hop_count = 15
     if payload is None:
         Message.payload = bytes(str(''), 'utf8')
@@ -209,9 +209,20 @@ def PrepareAuthMessage(payload, destination, flag):
         Message.payload = bytes(str(payload), 'utf8')
     return Message;
 
+def PrepareNeighborMessage(flag):
+    Message = MessageClass()
+    Message.version = 1
+    Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
+    Message.destination = UUIDtoMessageSource('FFFFFFFF')
+    Message.type = MessageTypes.Auth.value
+    Message.flag = flag
+    Message.hop_count = 15
+    Message.payload = bytes(str(''), 'utf8')
+    return Message;
+
 
 def PrepareACKMessage(destination):
-    Message = message()
+    Message = MessageClass()
     Message.version = 1
     Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
     Message.destination = UUIDtoMessageSource(destination)
@@ -234,13 +245,13 @@ def ChunkMessages(payload, header):
     MessageList = []
     if payload is None:
         header_flag = BitArray(bin=format(header.flag, '08b'))
-        if header.type != MessageTypes.Control.value:
+        if header.type != MessageTypes.Control.value and header.type != MessageTypes.Auth.value:
             header_flag[7] = 1
         Message = PrepareMessage(header.version, header.source, header.destination, header.type, header_flag.int, '',
                                  header.hop_count)
         MessageList.append(Message)
     else:
-        chunklist = Chunk(payload, message.payload.size)
+        chunklist = Chunk(payload, MessageClass.payload.size)
 
         for chunks, islast in chunklist:
             if islast:
@@ -305,36 +316,37 @@ def recv_flag(the_socket, buf, timeout=2):
     data = '';
     # beginning time
     begin = time.time()
+    addr = {}
     while 1:
         # if you got some data, then break after timeout
-        if total_data and Unpack(message, total_data[-1]).flag == 17 and time.time()-begin>timeout:
+        if total_data and Unpack(MessageClass, total_data[-1]).flag == 17 and time.time()-begin>timeout:
             break
         elif time.time() - begin > timeout * 2:
             break
         # recv something
         try:
-            data = the_socket.recv(buf)
+            data,addr = the_socket.recvfrom(buf)
             if data:
                 total_data.append(data)
                 begin = time.time()
         except:
             pass
             # join all parts to make final string
-    return total_data
+    return total_data,addr
 
 
 def Send_File(socket, addr, path):
     try:
         statinfo = os.stat(path)
-        bar_rate = 100 / (statinfo.st_size / message.payload.size)
+        bar_rate = 100 / (statinfo.st_size / MessageClass.payload.size)
         progress = bar_rate
         f = open(path, "rb")
-        data = f.read(message.payload.size)
+        data = f.read(MessageClass.payload.size)
         while (data):
             Message = PrepareFileMessage(data, 0)
             if (socket.sendto(Message, addr)):
                 print("Sending ...")
-                data = f.read(message.payload.size)
+                data = f.read(MessageClass.payload.size)
                 progress = progress + bar_rate
                 Update_Progress(progress / 100.0)
         Message = PrepareFileMessage("", 1)
@@ -447,11 +459,17 @@ def Get_AuthMessage(UDPSocket,UDPaddr,remote_addr,msg, rec_passphrase, sender_UU
         Session_Key_Entry = {'Key': decrypted_data.data, 'UUID': sender_UUID}
         SessionKeyTable.append(dict(Session_Key_Entry))
         Print_Table(SessionKeyTable)
-        ackmessage = PrepareACKMessage(sender_UUID)
-        Send_Message(UDPSocket, remote_addr, None, ackmessage)
+        Send_ACKMessage(UDPSocket, remote_addr, sender_UUID)
     else:
         print('Session couldnt established')
 
+def Send_ACKMessage(UDPSocket, remote_addr,sender_UUID):
+    ackmessage = PrepareACKMessage(sender_UUID)
+    Send_Message(UDPSocket, remote_addr, None, ackmessage)
+
+def Send_AUTHSUCCEEDEDMessage(UDPSocket, remote_addr,sender_UUID):
+    ackmessage = PrepareACKMessage(sender_UUID)
+    Send_Message(UDPSocket, remote_addr, None, ackmessage)
 
 def Help():
     print("#To send file => #FILE <path> ")
@@ -472,6 +490,11 @@ SessionKeyTable = [
 
 KeyIDs = [
     {'User': 'Nesli', 'PubID': 'CB59737D'}
+]
+
+NeighborTable = [
+
+
 ]
 
 # GNUPG passphrase hardcoded

@@ -17,7 +17,11 @@ while 1:
     if user_input is not None :
         if "#HELP" in user_input:
             Util.Help()
-            continue
+        elif "#ADDNEIGH" in user_input:
+            remote_ip = input('Type Remote Ip Address >>')
+            header = Util.PrepareNeighborMessage(0x01) #0x01 => Initiation flag
+            UDPaddr = (remote_ip, SocketData['UDPaddr'][1])
+            Util.Send_Message(SocketData['UDPSocket'], UDPaddr, None, header)
         elif "#FILE" in user_input:
             Util.Send_File(SocketData['UDPSocket'], SocketData['remote_addr'], user_input[5:].strip())
         elif "#AUTH" in user_input:
@@ -32,11 +36,18 @@ while 1:
             # print "Session has not been established!"
 
     # Receive Message
-    received_data = Util.recv_flag(SocketData['UDPSocket'], SocketData['UDPBuff'])
+    received_data,remote_addr = Util.recv_flag(SocketData['UDPSocket'], SocketData['UDPBuff'])
     if not received_data:
         continue
     else:
         received_messages = Util.UnpackArray(received_data)
+
+        #NEIGH Message
+        if received_messages[0].type == Util.MessageTypes.Auth.value and received_messages[0].flag == 0x01:
+            Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Util.RoutingTable[0]['UUID'])
+            header = Util.PrepareNeighborMessage(0x02)  # 0x02 => AuthSuccess flag
+            Util.Send_Message(SocketData['UDPSocket'], remote_addr, None, header)
+            print('Success Message Sent')
 
         #AUTH Message
         if received_messages[0].type == 1 and received_messages[0].flag == 16:
@@ -45,10 +56,17 @@ while 1:
             source_UUID = bytearray(received_messages[0].source).hex().upper()
             Util.Get_AuthMessage(SocketData['UDPSocket'], SocketData['UDPaddr'], SocketData['remote_addr'], all_msg,
                                  rec_pass_phr, source_UUID)
-        #ACK Message
+        #ACK0 Message
         if received_messages[0].type == Util.MessageTypes.Control.value and received_messages[0].flag == 0x04:
-            print('Session Established')
-            continue
+            print('ACK0 Received')
+
+        # ACK1 Message
+            if len(received_messages) > 1 and received_messages[1].type == Util.MessageTypes.Auth.value and received_messages[1].flag == 0x02:
+                newline = {'UUID':bytearray(received_messages[0].source).hex().upper(), 'Socket': remote_addr, 'PassiveTimer': time.time()}
+                Util.NeighborTable.append(dict(newline))
+                Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Util.RoutingTable[0]['UUID'])
+                print('Session Established')
+                continue
         if received_messages[0].type == 16:
             Util.WritePacketsToFile(received_messages)
             continue
@@ -57,7 +75,7 @@ while 1:
             print("Received message '", Util.ConcatMessages(received_messages), "'")
             continue
             # End Receiving Message
-        elif received_messages[0].type == 2:
+        elif received_messages[0].type == Util.MessageTypes.Data.value :
             print("Received message '", Util.ConcatMessages(received_messages), "'")
             continue
 
