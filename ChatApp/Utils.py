@@ -67,18 +67,13 @@ def PrepareSocket():
     if len(Connections) == 0:
         port = 6666
         # Host Parameters
-        remote_host = "192.168.0.37"
-        remote_port = port
-        remote_addr = (remote_host, remote_port)
-
         host = "192.168.0.18"
-        port = port
         UDPBuff = 1024
         UDPaddr = (host, port)
 
         UDPSocket = socket(AF_INET, SOCK_DGRAM)
         UDPSocket.bind(UDPaddr)
-        ConnectionsEntry = {'UDPSocket': UDPSocket, 'UDPaddr': UDPaddr, 'remote_host': remote_host, 'remote_addr':remote_addr,'UDPBuff':UDPBuff}
+        ConnectionsEntry = {'UDPSocket': UDPSocket, 'UDPaddr': UDPaddr, 'UDPBuff':UDPBuff}
         Connections['Host1'] = ConnectionsEntry
     else:
         ConnectionsEntry = Connections[0]

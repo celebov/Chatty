@@ -42,7 +42,7 @@ while 1:
     else:
         received_messages = Util.UnpackArray(received_data)
 
-        #NEIGH Message
+        #ADDNEIGH Message
         if received_messages[0].type == Util.MessageTypes.Auth.value and received_messages[0].flag == 0x01:
             Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Util.RoutingTable[0]['UUID'])
             header = Util.PrepareNeighborMessage(0x02)  # 0x02 => AuthSuccess flag
@@ -58,12 +58,19 @@ while 1:
                                  rec_pass_phr, source_UUID)
         #ACK0 Message
         if received_messages[0].type == Util.MessageTypes.Control.value and received_messages[0].flag == 0x04:
+            if Util.SearchDictionary(Util.NeighborTable,bytearray(received_messages[0].source).hex().upper()) is None:
+                newline = {'UUID': bytearray(received_messages[0].source).hex().upper(), 'Socket': remote_addr,
+                        'PassiveTimer': time.time()}
+                Util.NeighborTable.append(dict(newline))
+                Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Util.RoutingTable[0]['UUID'])
+                print('Added to Neigh. Table.')
             print('ACK0 Received')
 
         # ACK1 Message
             if len(received_messages) > 1 and received_messages[1].type == Util.MessageTypes.Auth.value and received_messages[1].flag == 0x02:
                 newline = {'UUID':bytearray(received_messages[0].source).hex().upper(), 'Socket': remote_addr, 'PassiveTimer': time.time()}
                 Util.NeighborTable.append(dict(newline))
+                print('Added to Neigh. Table.')
                 Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Util.RoutingTable[0]['UUID'])
                 print('Session Established')
                 continue
