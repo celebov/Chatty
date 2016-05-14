@@ -4,39 +4,52 @@ from socket import *
 import Utils as Util
 import time
 
-host = "192.168.0.18"
-port = 6666
-buf = 1024
-addr = (host, port)
-# End Socket Parameters Dynamically
-# Create socket and bind to address
-UDPSock = socket(AF_INET, SOCK_DGRAM)
+SocketData = Util.PrepareSocket()
 
-remote_host = "192.168.0.27"
-remote_port = 6666
-
-remote_addr = (remote_host, remote_port)
-
-# SessionKey = Util.sessionKeyControl("77F04F43B", UDPSock, remote_addr)
-
-# if SessionKey != None:
 print("Ready to Chat! Type #HELP for manual.")
 print("#To send file => #FILE <path> ")
-print ("#To send text message, enter the desired text directly.")
+print("#To send text message, enter the desired text directly.")
 
 while 1:
+
+    user_input = Util.getLine();
     # Send Message
-    user_input = input('>> ')
-    if "#HELP" in user_input:
-        Util.Help()
+    if user_input is not None :
+        if "#HELP" in user_input:
+            Util.Help()
+            continue
+        elif "#FILE" in user_input:
+            Util.Send_File(SocketData['UDPSocket'], SocketData['remote_addr'], user_input[5:].strip())
+        elif "#AUTH" in user_input:
+            Util.Send_AuthMessage(SocketData['UDPSocket'], SocketData['remote_addr'])
+        elif "#ROUT" in user_input:
+            Util.Send_RoutingTable(SocketData['UDPSocket'], SocketData['remote_addr'])
+        elif user_input:
+            header = Util.PrepareRandomMessage(None,None)
+            Util.Send_Message(SocketData['UDPSocket'],SocketData['remote_addr'], user_input, header)
+
+            # else:
+            # print "Session has not been established!"
+
+    # Receive Message
+    received_data = Util.recv_flag(SocketData['UDPSocket'], SocketData['UDPBuff'])
+    if not received_data:
         continue
-    elif "#FILE" in user_input:
-        Util.Send_File(UDPSock, remote_addr, user_input[5:].strip())
-    elif "#AUTH" in user_input:
-        Util.Send_AuthMessage(UDPSock,remote_addr)
-    elif "#ROUT" in user_input:
-        Util.Send_RoutingTable(UDPSock,remote_addr)
-    elif user_input:
-        Util.SendMessage(UDPSock, user_input, remote_addr)
-        # else:
-        # print "Session has not been established!"
+    else:
+        received_messages = Util.UnpackArray(received_data)
+        if received_messages[0].type == 1 and received_messages[0].flag == 16:
+            rec_pass_phr = input("Enter sender passphrase >> ")
+            all_msg = Util.ConcatMessages(received_messages)
+            source_UUID = bytearray(received_messages[0].source).hex().upper()
+            Util.Get_AuthMessage(SocketData['UDPSocket'], SocketData['UDPaddr'], SocketData['remote_addr'], all_msg,
+                                 rec_pass_phr, source_UUID)
+        if received_messages[0].type == 16:
+            Util.WritePacketsToFile(received_messages)
+        elif received_messages[0].type == 64:
+            Util.Get_RoutingTable(Util.ConcatMessages(received_messages), received_messages[0].source)
+            print("Received message '", Util.ConcatMessages(received_messages), "'")
+            # End Receiving Message
+        elif received_messages[0].type == 2:
+            print("Received message '", Util.ConcatMessages(received_messages), "'")
+
+SocketData['UDPSocket'].close()
