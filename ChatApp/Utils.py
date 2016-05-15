@@ -491,7 +491,7 @@ def Get_RecipientInfoFromNick(NickName, SocketData):
         else:
             print('Initialising AUTH...')
             if Config.passphrase is None:
-                Config.passphrase = getpass.getpass('Enter the PassPhrase>>')
+                Config.passphrase = input('Enter the PassPhrase>>')
             Neighbor_entry = SearchDictionary(Config.NeighborTable,KeyID_Entry['UUID'],'UUID' )
             Send_AuthMessage(SocketData, Neighbor_entry['Socket'], Neighbor_entry['UUID'], Neighbor_entry['UUID'])
             Tokens[0]["WaitForListening"] = 1;
