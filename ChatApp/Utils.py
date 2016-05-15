@@ -6,19 +6,13 @@ from Crypto.Random import get_random_bytes
 from enum import Enum
 from os import urandom
 from bitstring import *
-import sys, select,binascii, time, sys, gnupg, os
+import sys, select,binascii, time, sys, os
+import Configs as Config
 
 
-# gpg paramaters
-gpg = gnupg.GPG(gnupghome='/home/raziel/.gnupg')  # TYPE YOUR OWN .GNUPG PATH
-gpg.encoding = 'utf-8'
 
-#AES Parameters
-padValue = b'#'
-blockSize = 16
-
-padStr = lambda s: s + ((blockSize - len(s) % blockSize) * padValue)
-unpadStr = lambda s: s.rstrip(padValue)
+padStr = lambda s: s + ((Config.blockSize - len(s) % Config.blockSize) * Config.padValue)
+unpadStr = lambda s: s.rstrip(Config.padValue)
 
 def Prepare_EncryptionVariables():
     Aeskey = get_random_bytes(16) #SessionKey koyacann
@@ -64,7 +58,7 @@ class MessageClass(Structure):
     ]
 
 def PrepareSocket():
-    if len(Connections) == 0:
+    if len(Config.Connections) == 0:
         port = 6666
         # Host Parameters
         host = "192.168.0.18"
@@ -73,11 +67,11 @@ def PrepareSocket():
 
         UDPSocket = socket(AF_INET, SOCK_DGRAM)
         UDPSocket.bind(UDPaddr)
-        ConnectionsEntry = {'UDPSocket': UDPSocket, 'UDPaddr': UDPaddr, 'UDPBuff':UDPBuff}
-        Connections['Host1'] = ConnectionsEntry
+        Config.ConnectionsEntry = {'UDPSocket': UDPSocket, 'UDPaddr': UDPaddr, 'UDPBuff':UDPBuff}
+        Config.Connections['Host1'] = Config.ConnectionsEntry
     else:
-        ConnectionsEntry = Connections[0]
-    return ConnectionsEntry;
+        Config.ConnectionsEntry = Config.Connections[0]
+    return Config.ConnectionsEntry;
 
 
 def DumpObject(obj):
@@ -131,8 +125,8 @@ def PrepareMessage(version, source, destination, type, flag, payload, hop_count)
 def PrepareRandomMessage(payload, flag):
     Message = MessageClass()
     Message.version = 1
-    Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
-    Message.destination = UUIDtoMessageSource(RoutingTable[0]['UUID'])
+    Message.source = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
+    Message.destination = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
     Message.type = MessageTypes.Data.value
     if flag is None:
         Message.flag = 0x10
@@ -150,8 +144,8 @@ def PrepareRandomMessage(payload, flag):
 def PrepareFileMessage(payload, flag):
     Message = MessageClass()
     Message.version = 1
-    Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
-    Message.destination = UUIDtoMessageSource(RoutingTable[0]['UUID'])
+    Message.source = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
+    Message.destination = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
     Message.type = 0x01
     Message.flag = flag
     Message.hop_count = 15
@@ -169,7 +163,7 @@ def Send_AuthMessage(socket, addr):
 
 def PrepareAuthenticationPayload():
     rec_id = KeyIDs[0]['PubID']  # input('Type recipients public key id >> ')
-    myKeyid = gpg.list_keys(True)[0]['fingerprint'][-8:]  # Private Key
+    myKeyid = Config.gpg.list_keys(True)[0]['fingerprint'][-8:]  # Private Key
     myPP = passphrase
     AuthMessagetoSend = PGPEncMsg(rec_id, myPP)
     return AuthMessagetoSend;
@@ -177,20 +171,20 @@ def PrepareAuthenticationPayload():
 
 def PGPEncMsg(rec_id, myPP):
     challenge = os.urandom(16)
-    encrypted_challenge = gpg.encrypt(challenge, rec_id).data
-    signed_encrypted_challenge = gpg.sign(encrypted_challenge, passphrase=myPP).data
+    encrypted_challenge = Config.gpg.encrypt(challenge, rec_id).data
+    signed_encrypted_challenge = Config.gpg.sign(encrypted_challenge, passphrase=myPP).data
     return str(signed_encrypted_challenge, 'utf-8')
 
 
 def PGPDecMsg(enc_aut_msg, recPP):
-    dec_msg = gpg.decrypt(enc_aut_msg, passphrase=recPP)
+    dec_msg = Config.gpg.decrypt(enc_aut_msg, passphrase=recPP)
     return dec_msg
 
 
 def PrepareAuthMessage(payload, destination, flag):
     Message = MessageClass()
     Message.version = 1
-    Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
+    Message.source = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
     Message.destination = UUIDtoMessageSource(destination)
     Message.type = MessageTypes.Data.value
     if flag is None:
@@ -207,7 +201,7 @@ def PrepareAuthMessage(payload, destination, flag):
 def PrepareNeighborMessage(flag):
     Message = MessageClass()
     Message.version = 1
-    Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
+    Message.source = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
     Message.destination = UUIDtoMessageSource('FFFFFFFF')
     Message.type = MessageTypes.Auth.value
     Message.flag = flag
@@ -219,7 +213,7 @@ def PrepareNeighborMessage(flag):
 def PrepareACKMessage(destination):
     Message = MessageClass()
     Message.version = 1
-    Message.source = UUIDtoMessageSource(RoutingTable[0]['UUID'])
+    Message.source = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
     Message.destination = UUIDtoMessageSource(destination)
     Message.type = MessageTypes.Control.value
     Message.flag = 0x04
@@ -414,10 +408,9 @@ def Port_Input_Validator():
         Port_Input_Validator()
 
 
-def SearchDictionary(values, searchFor):
+def SearchDictionary(values, searchFor, key):
     for k in values:
-        for v in values[k]:
-            if searchFor in v:
+        if searchFor == k[key]:
                 return k
     return None
 
@@ -425,7 +418,7 @@ def SearchDictionary(values, searchFor):
 def Send_RoutingTable(socket, addr):
     destination = input('>>Destination: ')
     message = PrepareAuthMessage(None,destination, None)
-    Send_Message(socket,addr, RoutingTable,message);
+    Send_Message(socket,addr, Config.RoutingTable,message);
     print("Routing Table Sent.")
 
 
@@ -433,7 +426,7 @@ def Get_RoutingTable(data, sender_UUID):
     received_RT = eval(data)
     for received_line in enumerate(received_RT):
         try:
-            line = (item for item in RoutingTable if item["UUID"] == received_line[1]['UUID']).next()
+            line = (item for item in Config.RoutingTable if item["UUID"] == received_line[1]['UUID']).next()
         except:
             line = None
 
@@ -443,17 +436,17 @@ def Get_RoutingTable(data, sender_UUID):
                 line['Cost'] = received_line[1]['Cost'] + 1
         else:
             newline = {'UUID': received_line[1]['UUID'], 'ViaUUID': sender_UUID, 'Cost': received_line[1]['Cost'] + 1}
-            RoutingTable.append(dict(newline))
-    Print_Table(RoutingTable)
+            Config.RoutingTable.append(dict(newline))
+    Print_Table(Config.RoutingTable)
 
 
 def Get_AuthMessage(UDPSocket,UDPaddr,remote_addr,msg, rec_passphrase, sender_UUID):
-    decrypted_sign = gpg.decrypt(message=str(msg), passphrase=rec_passphrase)
-    decrypted_data = gpg.decrypt(message=decrypted_sign.data, passphrase=passphrase)
+    decrypted_sign = Config.gpg.decrypt(message=str(msg), passphrase=rec_passphrase)
+    decrypted_data = Config.gpg.decrypt(message=decrypted_sign.data, passphrase=Config.passphrase)
     if decrypted_data.ok:
         Session_Key_Entry = {'Key': decrypted_data.data, 'UUID': sender_UUID}
-        SessionKeyTable.append(dict(Session_Key_Entry))
-        Print_Table(SessionKeyTable)
+        Config.SessionKeyTable.append(dict(Session_Key_Entry))
+        Print_Table(Config.SessionKeyTable)
         Send_ACKMessage(UDPSocket, remote_addr, sender_UUID)
     else:
         print('Session couldnt established')
@@ -466,6 +459,14 @@ def Send_AUTHSUCCEEDEDMessage(UDPSocket, remote_addr,sender_UUID):
     ackmessage = PrepareACKMessage(sender_UUID)
     Send_Message(UDPSocket, remote_addr, None, ackmessage)
 
+def Add_KeyIDTable(remote_UUID):
+    if SearchDictionary(Config.KeyIDs, remote_UUID, 'UUID') is None:
+        username = input('Enter Username for this IP>>')
+        keyID_newline = {'User': username, 'UUID': remote_UUID}
+        Config.KeyIDs.append(dict(keyID_newline))
+    else:
+        print('This UUID Already Exists')
+
 def Help():
     print("#To send file => #FILE <path> ")
     print("#To send text message, enter the desired text directly.")
@@ -476,26 +477,7 @@ def Print_Table(table):
         print(line)
 
 
-RoutingTable = [
-    {'UUID': 'EC8AF480', 'ViaUUID': 'EC8AF480', 'Cost': 0},
-]
-SessionKeyTable = [
 
-]
-
-KeyIDs = [
-    {'User': 'Nesli', 'PubID': 'CB59737D'}
-]
-
-NeighborTable = [
-
-
-]
-
-# GNUPG passphrase hardcoded
-passphrase = 'kaan1234'
-
-Connections = {}
 # MessageType Enum class
 class MessageTypes(Enum):
     Data = 0x01
