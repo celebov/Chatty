@@ -69,14 +69,12 @@ while 1:
 
         #AUTH Message
         if received_messages[0].type == 1 and received_messages[0].flag == 16:
-            rec_pass_phr = input("Enter sender passphrase >> ")
+            rec_pass_phr = input("Enter passphrase >> ")
             all_msg = Util.ConcatMessages(received_messages)
             source_UUID = bytearray(received_messages[0].source).hex().upper()
             source_info = Util.SearchDictionary(Config.NeighborTable, source_UUID, 'UUID')
             Util.Get_AuthMessage(SocketData['UDPSocket'], SocketData['UDPaddr'], source_info['Socket'], all_msg,
-                                 rec_pass_phr, source_UUID)
-            Util.Tokens[0]["WaitForListening"] = 0;
-            Util.Tokens[0]["WaitReason"] = None;
+                                 source_UUID)
         #ACK0 Message (NEIGH)
         if received_messages[0].type == Util.MessageTypes.Control.value and received_messages[0].flag == 0x04:
             if Util.SearchDictionary(Config.NeighborTable,bytearray(received_messages[0].source).hex().upper(), 'UUID') is None:
@@ -88,6 +86,8 @@ while 1:
                 Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Config.RoutingTable[0]['UUID'])
                 print('Added to Neigh. Table.')
                 Util.Print_Table(Config.KeyIDs)
+            Util.Tokens[0]["WaitForListening"] = 0;
+            Util.Tokens[0]["WaitReason"] = None;
             print('ACK0 Received')
 
             #ACK1 Message (NEIGH)

@@ -154,17 +154,21 @@ def PrepareFileMessage(payload, flag):
     return packet;
 
 
-def Send_AuthMessage(socket, addr, destination):
-    auth_payload = PrepareAuthenticationPayload()
+def Send_AuthMessage(socket, addr, destination, receiver_UUID):
+    auth_payload = PrepareAuthenticationPayload(receiver_UUID)
     header = PrepareAuthMessage(None, destination, None)
     Send_Message(socket, addr, auth_payload, header)
 
 
-def PrepareAuthenticationPayload():
+def PrepareAuthenticationPayload(receiver_UUID):
     rec_id = Config.KeyIDs[0]['UUID']  # input('Type recipients public key id >> ')
     myKeyid = Config.gpg.list_keys(True)[0]['fingerprint'][-8:]  # Private Key
     myPP = Config.passphrase
     AuthMessagetoSend = PGPEncMsg(rec_id, myPP)
+
+    Session_Key_Entry = {'Key': AuthMessagetoSend, 'UUID': receiver_UUID}
+    Config.SessionKeyTable.append(dict(Session_Key_Entry))
+    Print_Table(Config.SessionKeyTable)
     return AuthMessagetoSend;
 
 
@@ -439,8 +443,8 @@ def Get_RoutingTable(data, sender_UUID):
     Print_Table(Config.RoutingTable)
 
 
-def Get_AuthMessage(UDPSocket,UDPaddr,remote_addr,msg, rec_passphrase, sender_UUID):
-    decrypted_sign = Config.gpg.decrypt(message=str(msg), passphrase=rec_passphrase)
+def Get_AuthMessage(UDPSocket,UDPaddr,remote_addr,msg, sender_UUID):
+    decrypted_sign = Config.gpg.decrypt(message=str(msg), passphrase=Config.passphrase)
     decrypted_data = Config.gpg.decrypt(message=decrypted_sign.data, passphrase=Config.passphrase)
     if decrypted_data.ok:
         Session_Key_Entry = {'Key': decrypted_data.data, 'UUID': sender_UUID}
@@ -482,14 +486,14 @@ def Get_RecipientInfoFromNick(NickName, SocketData):
     if KeyID_Entry:
         SessionKey_Entry = SearchDictionary(Config.SessionKeyTable, KeyID_Entry['UUID'], 'UUID' )
         if SessionKey_Entry:
-            Neighbor_Entry = SearchDictionary(Config.NeighborTable, NickName, 'UUID')
+            Neighbor_Entry = SearchDictionary(Config.NeighborTable, KeyID_Entry['UUID'], 'UUID')
             isNode = True;
         else:
             print('Initialising AUTH...')
             if Config.passphrase is None:
                 Config.passphrase = getpass.getpass('Enter the PassPhrase>>')
             Neighbor_entry = SearchDictionary(Config.NeighborTable,KeyID_Entry['UUID'],'UUID' )
-            Send_AuthMessage(SocketData, Neighbor_entry['Socket'], Neighbor_entry['UUID'] )
+            Send_AuthMessage(SocketData, Neighbor_entry['Socket'], Neighbor_entry['UUID'], Neighbor_entry['UUID'])
             Tokens[0]["WaitForListening"] = 1;
             Tokens[0]["WaitReason"] = "AUTH Message sent. Waiting for ACK.";
             print('AUTH Sent')
