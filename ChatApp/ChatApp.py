@@ -3,7 +3,7 @@
 from socket import *
 import Utils as Util
 import time
-import getpass
+import getpass,re
 import Configs as Config
 
 SocketData = Util.PrepareSocket()
@@ -14,32 +14,45 @@ print("#To send text message, enter the desired text directly.")
 if len(Config.NeighborTable) == 0:
     print("You dont have any Neighbour, to add use #ADDNEIGH")
 while 1:
+    if Util.Tokens[0]["WaitForListening"] != 1:
+        user_input = Util.getLine();
+        # Send Message
+        if user_input is not None :
+            if "#HELP" in user_input:
+                Util.Help()
+            elif "#ADDNEIGH" in user_input:
+                remote_ip = input('Type Remote Ip Address >>')
+                if Util.SearchDictionary(Config.NeighborTable,(remote_ip,SocketData['UDPaddr'][1]), 'Socket'):
+                    print('This address already exists.')
+                else:
+                    header = Util.PrepareNeighborMessage(0x01)  # 0x01 => Initiation flag
+                    UDPaddr = (remote_ip, SocketData['UDPaddr'][1])
+                    Util.Send_Message(SocketData['UDPSocket'], UDPaddr, None, header)
+            elif "#FILE" in user_input:
+                 Util.Send_File(SocketData['UDPSocket'], SocketData['remote_addr'], user_input[5:].strip())
+            elif "#AUTH" in user_input:
+                if Config.passphrase is None:
+                    Config.passphrase =  getpass.getpass('Enter the PassPhrase>>')
+                Util.Send_AuthMessage(SocketData['UDPSocket'], SocketData['remote_addr'])
+            elif "#ROUT" in user_input:
+                Util.Send_RoutingTable(SocketData['UDPSocket'], SocketData['remote_addr'])
+            elif user_input:
+                if user_input.split(' ')[0].startswith('#'):
+                    recipient_ID = user_input.split(' ')[0].split('#')[1]
+                else:
+                    print('Type #<Nick> to identify the receiver')
+                    continue
+                Recipient_Info, isNode = Util.Get_RecipientInfoFromNick(recipient_ID, SocketData['UDPSocket'])
+                if isNode:
+                    header = Util.PrepareRandomMessage(None, None)
+                    Util.Send_Message(SocketData['UDPSocket'], Recipient_Info['Socket'], user_input, header)
+                else:
+                    print('AUTH Protocol taking place...')
 
-    user_input = Util.getLine();
-    # Send Message
-    if user_input is not None :
-        if "#HELP" in user_input:
-            Util.Help()
-        elif "#ADDNEIGH" in user_input:
-            remote_ip = input('Type Remote Ip Address >>')
-            header = Util.PrepareNeighborMessage(0x01) #0x01 => Initiation flag
-            UDPaddr = (remote_ip, SocketData['UDPaddr'][1])
-            Util.Send_Message(SocketData['UDPSocket'], UDPaddr, None, header)
-        elif "#FILE" in user_input:
-            Util.Send_File(SocketData['UDPSocket'], SocketData['remote_addr'], user_input[5:].strip())
-        elif "#AUTH" in user_input:
-            if Config.passphrase is None:
-                Config.passphrase =  getpass.getpass('Enter the PassPhrase>>')
-            Util.Send_AuthMessage(SocketData['UDPSocket'], SocketData['remote_addr'])
-        elif "#ROUT" in user_input:
-            Util.Send_RoutingTable(SocketData['UDPSocket'], SocketData['remote_addr'])
-        elif user_input:
-            header = Util.PrepareRandomMessage(None,None)
-            Util.Send_Message(SocketData['UDPSocket'],SocketData['remote_addr'], user_input, header)
-
-            # else:
-            # print "Session has not been established!"
-
+                # else:
+                # print "Session has not been established!"
+    else:
+        print(Util.Tokens[0]["WaitReason"] + " Please Wait.")
     # Receive Message
     received_data,remote_addr = Util.recv_flag(SocketData['UDPSocket'], SocketData['UDPBuff'])
     if not received_data:
@@ -59,8 +72,11 @@ while 1:
             rec_pass_phr = input("Enter sender passphrase >> ")
             all_msg = Util.ConcatMessages(received_messages)
             source_UUID = bytearray(received_messages[0].source).hex().upper()
-            Util.Get_AuthMessage(SocketData['UDPSocket'], SocketData['UDPaddr'], SocketData['remote_addr'], all_msg,
+            source_info = Util.SearchDictionary(Config.NeighborTable, source_UUID, 'UUID')
+            Util.Get_AuthMessage(SocketData['UDPSocket'], SocketData['UDPaddr'], source_info['Socket'], all_msg,
                                  rec_pass_phr, source_UUID)
+            Util.Tokens[0]["WaitForListening"] = 0;
+            Util.Tokens[0]["WaitReason"] = None;
         #ACK0 Message (NEIGH)
         if received_messages[0].type == Util.MessageTypes.Control.value and received_messages[0].flag == 0x04:
             if Util.SearchDictionary(Config.NeighborTable,bytearray(received_messages[0].source).hex().upper(), 'UUID') is None:

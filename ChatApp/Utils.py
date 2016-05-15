@@ -6,7 +6,7 @@ from Crypto.Random import get_random_bytes
 from enum import Enum
 from os import urandom
 from bitstring import *
-import sys, select,binascii, time, sys, os
+import sys, select,binascii, time, sys, os, getpass
 import Configs as Config
 
 
@@ -154,17 +154,16 @@ def PrepareFileMessage(payload, flag):
     return packet;
 
 
-def Send_AuthMessage(socket, addr):
+def Send_AuthMessage(socket, addr, destination):
     auth_payload = PrepareAuthenticationPayload()
-    destination = user_input = input('>> Destination UUID : ')
     header = PrepareAuthMessage(None, destination, None)
     Send_Message(socket, addr, auth_payload, header)
 
 
 def PrepareAuthenticationPayload():
-    rec_id = KeyIDs[0]['PubID']  # input('Type recipients public key id >> ')
+    rec_id = Config.KeyIDs[0]['UUID']  # input('Type recipients public key id >> ')
     myKeyid = Config.gpg.list_keys(True)[0]['fingerprint'][-8:]  # Private Key
-    myPP = passphrase
+    myPP = Config.passphrase
     AuthMessagetoSend = PGPEncMsg(rec_id, myPP)
     return AuthMessagetoSend;
 
@@ -226,7 +225,7 @@ def Send_Message(socket, addr, payload, header):
     messagetosend = ChunkMessages(payload, header)
     for message in messagetosend:
         if (socket.sendto(message, addr)):
-            print("Sending message '", message, "'.....")
+            #print("Sending message '", message, "'.....")
             print("\nSending to: '", addr[0],'=>',addr[1])
 
 
@@ -476,8 +475,30 @@ def Print_Table(table):
     for line in enumerate(table):
         print(line)
 
+def Get_RecipientInfoFromNick(NickName, SocketData):
+    KeyID_Entry = SearchDictionary(Config.KeyIDs, NickName, 'User')
+    Neighbor_Entry = ''
+    isNode = False
+    if KeyID_Entry:
+        SessionKey_Entry = SearchDictionary(Config.SessionKeyTable, KeyID_Entry['UUID'], 'UUID' )
+        if SessionKey_Entry:
+            Neighbor_Entry = SearchDictionary(Config.NeighborTable, NickName, 'UUID')
+            isNode = True;
+        else:
+            print('Initialising AUTH...')
+            if Config.passphrase is None:
+                Config.passphrase = getpass.getpass('Enter the PassPhrase>>')
+            Neighbor_entry = SearchDictionary(Config.NeighborTable,KeyID_Entry['UUID'],'UUID' )
+            Send_AuthMessage(SocketData, Neighbor_entry['Socket'], Neighbor_entry['UUID'] )
+            Tokens[0]["WaitForListening"] = 1;
+            Tokens[0]["WaitReason"] = "AUTH Message sent. Waiting for ACK.";
+            print('AUTH Sent')
+            isNode = False
+    return Neighbor_Entry, isNode
 
-
+Tokens = [
+    {"WaitForSending":0, "WaitForListening":0, "WaitReason":''}
+]
 # MessageType Enum class
 class MessageTypes(Enum):
     Data = 0x01
