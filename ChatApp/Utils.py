@@ -178,8 +178,7 @@ def Send_AuthMessage(socket, addr, destination, receiver_UUID):
 
 
 def PrepareAuthenticationPayload(receiver_UUID):
-    rec_id = Config.KeyIDs[0]['UUID']  # input('Type recipients public key id >> ')
-    myKeyid = Config.gpg.list_keys(True)[0]['fingerprint'][-8:]  # Private Key
+    rec_id = receiver_UUID  # input('Type recipients public key id >> ')
     myPP = Config.passphrase
     AuthMessagetoSend, challenge = PGPEncMsg(rec_id, myPP)
 
