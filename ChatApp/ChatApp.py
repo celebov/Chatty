@@ -32,7 +32,7 @@ while 1:
                  Util.Send_File(SocketData['UDPSocket'], SocketData['remote_addr'], user_input[5:].strip())
             elif "#AUTH" in user_input:
                 if Config.passphrase is None:
-                    Config.passphrase =  getpass.getpass('Enter the PassPhrase>>')
+                    Config.passphrase =  input('Enter the PassPhrase>>')
                 Util.Send_AuthMessage(SocketData['UDPSocket'], SocketData['remote_addr'])
             elif "#ROUT" in user_input:
                 Util.Send_RoutingTable(SocketData['UDPSocket'], SocketData['remote_addr'])
@@ -44,8 +44,9 @@ while 1:
                     continue
                 Recipient_Info, isNode = Util.Get_RecipientInfoFromNick(recipient_ID, SocketData['UDPSocket'])
                 if isNode:
+                    message_text = user_input[len(user_input.split(' ')[0]):].strip()
                     header = Util.PrepareRandomMessage(None, None)
-                    Util.Send_Message(SocketData['UDPSocket'], Recipient_Info['Socket'], user_input, header)
+                    Util.Send_Message(SocketData['UDPSocket'], Recipient_Info['Socket'], message_text, header)
                 else:
                     print('AUTH Protocol taking place...')
 
@@ -69,7 +70,7 @@ while 1:
 
         #AUTH Message
         if received_messages[0].type == 1 and received_messages[0].flag == 16:
-            rec_pass_phr = input("Enter passphrase >> ")
+            Util.Set_Passphrase()
             all_msg = Util.ConcatMessages(received_messages)
             source_UUID = bytearray(received_messages[0].source).hex().upper()
             source_info = Util.SearchDictionary(Config.NeighborTable, source_UUID, 'UUID')

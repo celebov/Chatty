@@ -61,7 +61,7 @@ def PrepareSocket():
     if len(Config.Connections) == 0:
         port = 6666
         # Host Parameters
-        host = "192.168.0.18"
+        host = "10.176.1.10"
         UDPBuff = 1024
         UDPaddr = (host, port)
 
@@ -490,8 +490,7 @@ def Get_RecipientInfoFromNick(NickName, SocketData):
             isNode = True;
         else:
             print('Initialising AUTH...')
-            if Config.passphrase is None:
-                Config.passphrase = input('Enter the PassPhrase>>')
+            Set_Passphrase()
             Neighbor_entry = SearchDictionary(Config.NeighborTable,KeyID_Entry['UUID'],'UUID' )
             Send_AuthMessage(SocketData, Neighbor_entry['Socket'], Neighbor_entry['UUID'], Neighbor_entry['UUID'])
             Tokens[0]["WaitForListening"] = 1;
@@ -503,6 +502,12 @@ def Get_RecipientInfoFromNick(NickName, SocketData):
 Tokens = [
     {"WaitForSending":0, "WaitForListening":0, "WaitReason":''}
 ]
+
+
+def Set_Passphrase():
+    if Config.passphrase is None:
+        Config.passphrase = input('Enter the PassPhrase>>')
+
 # MessageType Enum class
 class MessageTypes(Enum):
     Data = 0x01
