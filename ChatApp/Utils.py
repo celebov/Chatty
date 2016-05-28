@@ -10,25 +10,35 @@ import sys, select,binascii, time, sys, os, getpass
 import Configs as Config
 
 
+def SearchDictionary(values, searchFor, key):
+    for k in values:
+        if searchFor == k[key]:
+                return k
+    return None
 
 padStr = lambda s: s + ((Config.blockSize - len(s) % Config.blockSize) * Config.padValue)
 unpadStr = lambda s: s.rstrip(Config.padValue)
 
-def Prepare_EncryptionVariables():
-    Aeskey = get_random_bytes(16) #SessionKey koyacann
+def Prepare_EncryptionVariables(receiver_UUID):
+    SessionKey_Entry = SearchDictionary(Config.SessionKeyTable, receiver_UUID, 'UUID')
+    Aeskey = SessionKey_Entry['Key']#get_random_bytes(16)
     iv = get_random_bytes(16)
     return Aeskey,iv
 
-def AESEncMSg(AESkey, plainMsg):
-    AESkey,iv = Prepare_EncryptionVariables()
-    padMsg = padStr(plainMsg)
+def AESEncMSg(plainMsg, receiver_UUID):
+    receiver_UUID = bytearray(receiver_UUID).hex().upper()
+    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)
+    padMsg = padStr(bytes(plainMsg, 'utf-8'))
     cipher = AES.new(AESkey, AES.MODE_CBC, iv)
     return (iv + cipher.encrypt(padMsg))
 
-def AESDecMSg(AESkey, ciphertext):
+def AESDecMSg(sender_UUID, ciphertext):
+    sender_UUID = bytearray(sender_UUID).hex().upper()
+    SessionKey_Entry = SearchDictionary(Config.SessionKeyTable, sender_UUID, 'UUID')
+    Aeskey = SessionKey_Entry['Key']
     iv = ciphertext[:16]
     ciphertext = ciphertext[16:]
-    decipher = AES.new(AESkey, AES.MODE_CBC, iv)
+    decipher = AES.new(Aeskey, AES.MODE_CBC, iv)
     deciphertext = decipher.decrypt(ciphertext)
     deciphertext = unpadStr(deciphertext)
     return(deciphertext)
@@ -61,7 +71,7 @@ def PrepareSocket():
     if len(Config.Connections) == 0:
         port = 6666
         # Host Parameters
-        host = "10.176.1.10"
+        host = "10.224.0.39"
         UDPBuff = 1024
         UDPaddr = (host, port)
 
@@ -117,16 +127,23 @@ def PrepareMessage(version, source, destination, type, flag, payload, hop_count)
     if payload is None:
         Message.payload = bytes('', 'utf8')
     else:
-        Message.payload = bytes(str(payload), 'utf8')
+        if type == MessageTypes.Data.value and ( Message.flag == 4 or Message.flag == 5 or Message.flag == 8 or Message.flag == 9):
+            payload = AESEncMSg(payload, Message.destination)
+        else:
+            payload = str(payload)
+    if isinstance(payload,str):
+        Message.payload = bytes(payload, 'utf8')
+    elif isinstance(payload,bytes):
+        Message.payload = payload
     packet = Pack(Message)
     return packet;
 
 
-def PrepareRandomMessage(payload, flag):
+def PrepareRandomMessage(payload, flag , destination):
     Message = MessageClass()
     Message.version = 1
     Message.source = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
-    Message.destination = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
+    Message.destination = UUIDtoMessageSource(destination)
     Message.type = MessageTypes.Data.value
     if flag is None:
         Message.flag = 0x10
@@ -164,9 +181,9 @@ def PrepareAuthenticationPayload(receiver_UUID):
     rec_id = Config.KeyIDs[0]['UUID']  # input('Type recipients public key id >> ')
     myKeyid = Config.gpg.list_keys(True)[0]['fingerprint'][-8:]  # Private Key
     myPP = Config.passphrase
-    AuthMessagetoSend = PGPEncMsg(rec_id, myPP)
+    AuthMessagetoSend, challenge = PGPEncMsg(rec_id, myPP)
 
-    Session_Key_Entry = {'Key': AuthMessagetoSend, 'UUID': receiver_UUID}
+    Session_Key_Entry = {'Key': challenge, 'UUID': receiver_UUID}
     Config.SessionKeyTable.append(dict(Session_Key_Entry))
     Print_Table(Config.SessionKeyTable)
     return AuthMessagetoSend;
@@ -176,7 +193,7 @@ def PGPEncMsg(rec_id, myPP):
     challenge = os.urandom(16)
     encrypted_challenge = Config.gpg.encrypt(challenge, rec_id).data
     signed_encrypted_challenge = Config.gpg.sign(encrypted_challenge, passphrase=myPP).data
-    return str(signed_encrypted_challenge, 'utf-8')
+    return str(signed_encrypted_challenge, 'utf-8'), challenge
 
 
 def PGPDecMsg(enc_aut_msg, recPP):
@@ -272,7 +289,13 @@ def Chunk(lst, n):
 def ConcatMessages(MessageList):
     Final_Text = '';
     for message in MessageList:
-        Final_Text = Final_Text + str(message.payload, 'utf-8')
+        if message.type == MessageTypes.Data.value and (message.flag == 4 or message.flag == 5 or message.flag == 8 or message.flag == 9 ):
+            Final_Text = Final_Text + str(AESDecMSg(message.source,message.payload), 'utf-8')
+        else:
+            try:
+                Final_Text = Final_Text + str(message.payload, 'utf-8')
+            except UnicodeDecodeError:
+                Final_Text = Final_Text + str(message.payload)
         if message.flag == 1:
             break
     return Final_Text
@@ -411,11 +434,7 @@ def Port_Input_Validator():
         Port_Input_Validator()
 
 
-def SearchDictionary(values, searchFor, key):
-    for k in values:
-        if searchFor == k[key]:
-                return k
-    return None
+
 
 
 def Send_RoutingTable(socket, addr):

@@ -45,7 +45,7 @@ while 1:
                 Recipient_Info, isNode = Util.Get_RecipientInfoFromNick(recipient_ID, SocketData['UDPSocket'])
                 if isNode:
                     message_text = user_input[len(user_input.split(' ')[0]):].strip()
-                    header = Util.PrepareRandomMessage(None, None)
+                    header = Util.PrepareRandomMessage(None, 0x04, Recipient_Info['UUID'])
                     Util.Send_Message(SocketData['UDPSocket'], Recipient_Info['Socket'], message_text, header)
                 else:
                     print('AUTH Protocol taking place...')
@@ -109,8 +109,9 @@ while 1:
             print("Received message '", Util.ConcatMessages(received_messages), "'")
             continue
             # End Receiving Message
-        elif received_messages[0].type == Util.MessageTypes.Data.value :
-            print("Received message '", Util.ConcatMessages(received_messages), "'")
+        elif received_messages[0].type == Util.MessageTypes.Data.value and received_messages[0].flag != 16:
+            encrypted_text = Util.ConcatMessages(received_messages)
+            print("Received message '", encrypted_text, "'")
             continue
 
 SocketData['UDPSocket'].close()
