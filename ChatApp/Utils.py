@@ -94,29 +94,29 @@ def SearchDictionary(values, searchFor, key):
 #padStr = lambda s: s + ((Config.blockSize - len(s) % Config.blockSize) * Config.padValue)
 def padStr(str):
     try:
-        logging.debug("Padding string : " + str)
+        logging.debug("Padding string : " + str.decode('utf-8'))
         str = str + ((Config.blockSize - len(str) % Config.blockSize) * Config.padValue)
-        logging.debug("Padded string : " + str)
+        logging.debug("Padded string : " + str.decode('utf-8'))
         return str
     except:
         exc_type, exc_value, exc_traceback = sys.exc_info()
         logging.error(repr(traceback.format_exception(exc_type, exc_value,
                                                       exc_traceback)))
-        logging.error("Variables : " + str)
+        logging.error("Variables : " + str.decode('utf-8'))
         raise
 
 #unpadStr = lambda s: s.rstrip(Config.padValue)
 def unpadStr(str):
     try:
-        logging.debug("UnPadding string : " + str)
+        logging.debug("UnPadding string : " + str.decode('utf-8'))
         str = str.rstrip(Config.padValue)
-        logging.debug("UnPadded string : " + str)
+        logging.debug("UnPadded string : " + str.decode('utf-8'))
         return str
     except:
         exc_type, exc_value, exc_traceback = sys.exc_info()
         logging.error(repr(traceback.format_exception(exc_type, exc_value,
                                                       exc_traceback)))
-        logging.error("\n" + "Variables : " + str)
+        logging.error("\n" + "Variables : " + str.decode('utf-8'))
         raise
 
 
@@ -134,7 +134,7 @@ def Prepare_EncryptionVariables(receiver_UUID):
         exc_type, exc_value, exc_traceback = sys.exc_info()
         logging.error(repr(traceback.format_exception(exc_type, exc_value,
                                                       exc_traceback)))
-        
+
 
 def AESEncMSg(plainMsg, receiver_UUID):
     receiver_UUID = bytearray(receiver_UUID).hex().upper()
@@ -742,7 +742,6 @@ def Send_RoutingTable(socket, addr, receiver_UUID):
     try:
         variable_list = [socket, addr, receiver_UUID]
         logging.debug("Sending Routing Table Protocol initialized with: " + Prepare_Debugstring(variable_list))
-        destination = input('>>Destination: ')
         message = PrepareAuthMessage(None, receiver_UUID, 0x20)
         Send_Message(socket, addr, Config.RoutingTable, message)
         logging.info("Routing Table Sent!")
