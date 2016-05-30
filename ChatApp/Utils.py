@@ -320,8 +320,8 @@ def UUIDtoMessageSource(UUID):
 
 def PrepareMessage(version, source, destination, _type, flag, payload, hop_count):
     try:
-        logging.debug("Preparing Message for :" + destination)
-        logging.debug("Payload Type: " + type(payload))
+        logging.debug("Preparing Message for :" + bytearray(destination).hex().upper())
+        logging.debug("Payload Type: " + str(type(payload)))
         Message = MessageClass()
         Message.version = version
         Message.source = source
@@ -479,7 +479,7 @@ def PrepareAuthMessage(payload, destination, flag):
 
 def PrepareNeighborMessage(flag):
     try:
-        logging.debug("Neighboring Message is being prepared...")
+        logging.info("Neighboring Message is being prepared...")
         Message = MessageClass()
         Message.version = 1
         Message.source = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
@@ -525,7 +525,7 @@ def Send_Message(socket, addr, payload, header):
             if not (socket.sendto(message, addr)):
                 logging.warning("Couldn't Send a packet!: " + addr[0] +"=>" + addr[1])
                 #print("Sending message '", message, "'.....")
-        logging.debug("Sent to: " + addr[0] +"=>" + addr[1])
+        logging.debug("Sent to: " + str(addr[0]) +"=>" + str(addr[1]))
 
     except:
         exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -560,7 +560,7 @@ def ChunkMessages(payload, header):
                     Message = PrepareMessage(header.version, header.source, header.destination, header.type, header.flag,
                                              chunks, header.hop_count)
                 MessageList.append(Message)
-        logging.debug("Chunking completed with:" + len(MessageList) + "Packets.")
+        logging.debug("Chunking completed with:" + str(len(MessageList)) + " Packets.")
         return MessageList
     except:
         exc_type, exc_value, exc_traceback = sys.exc_info()
