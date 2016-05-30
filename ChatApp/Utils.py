@@ -641,6 +641,7 @@ def recv_flag(the_socket, buf, timeout=2):
 
 def Send_File(socket, addr, path):
     try:
+        logging.info("File Sending Protocol Initialized for:" + path)
         variable_list = [socket, addr, path]
         logging.debug("File Sending Protocol initialized with: "+ Prepare_Debugstring(variable_list))
         statinfo = os.stat(path)
@@ -655,7 +656,7 @@ def Send_File(socket, addr, path):
                 data = f.read(MessageClass.payload.size)
                 progress = progress + bar_rate
                 Update_Progress(progress / 100.0)
-        Message = PrepareFileMessage("", 0x09)
+        Message = PrepareFileMessage(b'', 0x09)
         socket.sendto(Message, addr)
         progress = progress + bar_rate
         Update_Progress(progress / 100.0)
