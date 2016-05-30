@@ -6,7 +6,7 @@ blockSize = 16
 
 #{'UUID': 'EC8AF480', 'ViaUUID': 'EC8AF480', 'Cost': 0},
 RoutingTable = [
-    {'UUID': 'EC8AF480', 'ViaUUID': 'EC8AF480', 'Cost': 0}
+    {'UUID': 'CB59737D', 'ViaUUID': 'CB59737D', 'Cost': 0}
 ]
 
 SessionKeyTable = [

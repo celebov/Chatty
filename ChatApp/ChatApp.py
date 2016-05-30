@@ -39,7 +39,7 @@ try:
                          logging.warning("Recipient can not be found.")
                          print("Wrong User Info. Please Check username or establish Session...")
                      else:
-                        Util.Send_File(SocketData['UDPSocket'], Recipient_Info['Socket'], path)
+                        Util.Send_File(SocketData['UDPSocket'], Recipient_Info['Socket'], path,  Recipient_Info['UUID'])
                 elif "#ROUT" in user_input:
                     destination = input('»Destination Username: ')
                     Entry, isnode = Util.Get_RecipientInfoFromNick(destination, SocketData['UDPSocket'])
@@ -116,7 +116,7 @@ try:
                     continue
             #Receive File
             if received_messages[0].type == 1 and (received_messages[0].flag == 8 or received_messages[0].flag == 9):
-                Util.WritePacketsToFile(received_messages)
+                Util.WritePacketsToFile(received_messages, received_messages[0].source)
                 continue
 
             elif received_messages[0].type == 1 and (received_messages[0].flag == 33 or received_messages[0].flag == 32):

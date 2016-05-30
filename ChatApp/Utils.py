@@ -143,7 +143,10 @@ def AESEncMSg(plainMsg, receiver_UUID):
     try:
         logging.debug("Encrypting Message... " + Prepare_Debugstring(variable_list))
         AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)
-        padMsg = padStr(bytes(plainMsg, 'utf-8'))
+        try:
+            padMsg = padStr(bytes(plainMsg, 'utf-8'))
+        except TypeError:
+            padMsg = padStr(plainMsg)
         cipher = AES.new(AESkey, AES.MODE_CBC, iv)
         variable_list = [AESkey,iv,padMsg,cipher]
         logging.debug("Encrypted with : " + Prepare_Debugstring(variable_list))
@@ -376,17 +379,23 @@ def PrepareRandomMessage(payload, flag , destination):
         raise
 
 
-def PrepareFileMessage(payload, flag):
+def PrepareFileMessage(payload, flag, destination):
     try:
         logging.info('Preparing File Message Packet...')
         Message = MessageClass()
         Message.version = 1
         Message.source = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
-        Message.destination = UUIDtoMessageSource(Config.RoutingTable[0]['UUID'])
+        Message.destination = UUIDtoMessageSource(destination)
         Message.type = 0x01
         Message.flag = flag
         Message.hop_count = 15
-        Message.payload = payload
+
+        payload = AESEncMSg(payload, Message.destination)
+        if isinstance(payload, str):
+            Message.payload = bytes(payload, 'utf8')
+        elif isinstance(payload, bytes):
+            Message.payload = payload
+
         packet = Pack(Message)
         return packet;
     except:
@@ -639,7 +648,7 @@ def recv_flag(the_socket, buf, timeout=2):
         pass
 
 
-def Send_File(socket, addr, path):
+def Send_File(socket, addr, path, destination):
     try:
         logging.info("File Sending Protocol Initialized for:" + path)
         variable_list = [socket, addr, path]
@@ -650,13 +659,13 @@ def Send_File(socket, addr, path):
         f = open(path, "rb")
         data = f.read(MessageClass.payload.size)
         while (data):
-            Message = PrepareFileMessage(data, 0x08)
+            Message = PrepareFileMessage(data, 0x08, destination)
             if (socket.sendto(Message, addr)):
                 print("Sending ...")
                 data = f.read(MessageClass.payload.size)
                 progress = progress + bar_rate
                 Update_Progress(progress / 100.0)
-        Message = PrepareFileMessage(b'', 0x09)
+        Message = PrepareFileMessage(b'', 0x09, destination)
         socket.sendto(Message, addr)
         progress = progress + bar_rate
         Update_Progress(progress / 100.0)
@@ -671,12 +680,12 @@ def Send_File(socket, addr, path):
         logging.error("File Couldn't be Send.")
         pass
 
-def WritePacketsToFile(Packets):
+def WritePacketsToFile(Packets, sender_UUID):
     try:
         logging.debug("Writing packets to File...")
         f = open("ChatAppFile", 'wb')
         for packets in Packets:
-            f.write(packets.payload)
+            f.write(AESDecMSg(sender_UUID, packets.payload))
         f.close()
         logging.info("File Downloaded!")
     except:

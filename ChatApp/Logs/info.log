@@ -933,3 +933,315 @@ Variables CB59737D,b'selam'
 2016-05-30 18:50:44,549 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 389, in PrepareFileMessage\n    Message.payload = payload\n', 'TypeError: expected bytes, str found\n']
 2016-05-30 18:50:44,583 - root - INFO - Preparing File Message Packet...
 2016-05-30 18:50:44,584 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 389, in PrepareFileMessage\n    Message.payload = payload\n', 'TypeError: expected bytes, str found\n']
+2016-05-30 19:45:25,121 - root - INFO - Socket Information: ('10.224.1.86', 5555)
+2016-05-30 19:45:25,121 - root - INFO - Preparing GnuPG...
+2016-05-30 19:45:41,644 - root - INFO - Neighboring Message is being prepared...
+2016-05-30 19:45:41,645 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 19:45:54,533 - root - INFO - Unpacking Message Array...
+2016-05-30 19:45:58,629 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 19:45:58,630 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 19:45:58,630 - root - INFO - You can start Session Initialization Process with: EC8AF480
+2016-05-30 19:45:58,630 - root - WARNING - This UUID Already Exists
+2016-05-30 19:45:58,631 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 19:45:58,632 - root - INFO - Session Established with EC8AF480 Waiting For ACK Message...
+2016-05-30 19:46:09,155 - root - INFO - Unpacking Message Array...
+2016-05-30 19:46:09,156 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 19:46:09,156 - root - INFO - You can start Session Initialization Process with: EC8AF480
+2016-05-30 19:46:17,157 - root - INFO - SessionKey Entry cannot be Found...Initialising AUTH Protocol...
+2016-05-30 19:46:17,157 - root - INFO - Setting Passphrase.. This Procedure is one time only...
+2016-05-30 19:46:23,304 - root - INFO - PassPhrase is set!
+2016-05-30 19:46:23,305 - root - INFO - Auth Payload is being prepared...
+2016-05-30 19:46:23,306 - root - INFO - PGP Challenge Encryption Process started...
+2016-05-30 19:46:23,369 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 19:46:23,371 - root - INFO - Auth Message Sent to: EC8AF480
+2016-05-30 19:46:23,372 - root - INFO - AUTH Sent to: EC8AF480
+2016-05-30 19:46:23,372 - root - INFO - AUTH Protocol is taking place for : kaan
+2016-05-30 19:46:27,372 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 19:46:32,228 - root - INFO - Unpacking Message Array...
+2016-05-30 19:46:32,228 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 19:46:32,229 - root - INFO - You can start Conversation with: EC8AF480
+2016-05-30 19:46:40,229 - root - INFO - AUTH Protocol is taking place for : 
+2016-05-30 19:47:12,231 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 19:47:12,232 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 19:47:12,232 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 19:47:31,564 - root - INFO - Unpacking Message Array...
+2016-05-30 19:47:31,564 - root - INFO - Message Concatenation Process Started...
+2016-05-30 19:47:31,564 - root - INFO - Decrypting Message From : EC8AF480
+2016-05-30 19:48:13,516 - root - INFO - File Sending Protocol Initialized for:/home/neslic/Desktop/secret.txt
+2016-05-30 19:48:13,517 - root - INFO - Preparing File Message Packet...
+2016-05-30 19:48:13,517 - root - INFO - Preparing File Message Packet...
+2016-05-30 19:53:01,695 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 627, in recv_flag\n    data,addr = the_socket.recvfrom(buf)\n', 'BlockingIOError: [Errno 11] Resource temporarily unavailable\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 627, in recv_flag\n    data,addr = the_socket.recvfrom(buf)\n', 'KeyboardInterrupt\n']
+2016-05-30 19:53:44,661 - root - INFO - Socket Information: ('10.224.1.86', 5555)
+2016-05-30 19:53:44,663 - root - INFO - Preparing GnuPG...
+2016-05-30 19:53:58,225 - root - INFO - Neighboring Message is being prepared...
+2016-05-30 19:53:58,228 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 19:54:06,327 - root - INFO - Unpacking Message Array...
+2016-05-30 19:54:09,767 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 19:54:09,778 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 19:54:09,779 - root - INFO - You can start Session Initialization Process with: EC8AF480
+2016-05-30 19:54:09,780 - root - WARNING - This UUID Already Exists
+2016-05-30 19:54:09,782 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 19:54:09,784 - root - INFO - Session Established with EC8AF480 Waiting For ACK Message...
+2016-05-30 19:54:20,438 - root - INFO - Unpacking Message Array...
+2016-05-30 19:54:20,439 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 19:54:20,439 - root - INFO - You can start Session Initialization Process with: EC8AF480
+2016-05-30 19:54:44,442 - root - INFO - SessionKey Entry cannot be Found...Initialising AUTH Protocol...
+2016-05-30 19:54:44,443 - root - INFO - Setting Passphrase.. This Procedure is one time only...
+2016-05-30 19:54:48,389 - root - INFO - PassPhrase is set!
+2016-05-30 19:54:48,393 - root - INFO - Auth Payload is being prepared...
+2016-05-30 19:54:48,396 - root - INFO - PGP Challenge Encryption Process started...
+2016-05-30 19:54:48,473 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 19:54:48,488 - root - INFO - Auth Message Sent to: EC8AF480
+2016-05-30 19:54:48,489 - root - INFO - AUTH Sent to: EC8AF480
+2016-05-30 19:54:48,489 - root - INFO - AUTH Protocol is taking place for : kaan
+2016-05-30 19:54:52,490 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 19:54:58,991 - root - INFO - Unpacking Message Array...
+2016-05-30 19:54:58,992 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 19:54:58,993 - root - INFO - You can start Conversation with: EC8AF480
+2016-05-30 19:55:36,293 - root - INFO - File Sending Protocol Initialized for:/home/neslic/Desktop/secret.txt
+2016-05-30 19:55:47,152 - root - INFO - Preparing File Message Packet...
+2016-05-30 19:55:47,152 - root - INFO - Encrypting Message For : CB59737D
+2016-05-30 19:55:47,152 - root - INFO - Preparing Encryption Variables for :CB59737D
+2016-05-30 19:55:47,153 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 127, in Prepare_EncryptionVariables\n    Aeskey = SessionKey_Entry[\'Key\']#get_random_bytes(16)\n', "TypeError: 'NoneType' object is not subscriptable\n"]
+2016-05-30 19:55:47,153 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 19:55:47,153 - root - ERROR - Variables b'errwewre\n',CB59737D
+2016-05-30 19:55:47,153 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 394, in PrepareFileMessage\n    payload = AESEncMSg(payload, Message.destination)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 19:55:57,246 - root - INFO - Preparing File Message Packet...
+2016-05-30 19:56:29,557 - root - INFO - Encrypting Message For : CB59737D
+2016-05-30 19:56:29,558 - root - INFO - Preparing Encryption Variables for :CB59737D
+2016-05-30 19:56:29,558 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 127, in Prepare_EncryptionVariables\n    Aeskey = SessionKey_Entry[\'Key\']#get_random_bytes(16)\n', "TypeError: 'NoneType' object is not subscriptable\n"]
+2016-05-30 19:56:29,558 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 19:56:29,558 - root - ERROR - Variables b'errwewre\n',CB59737D
+2016-05-30 19:57:07,767 - root - INFO - Encrypting Message For : CB59737D
+2016-05-30 19:57:12,811 - root - INFO - Preparing Encryption Variables for :CB59737D
+2016-05-30 19:57:12,815 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 127, in Prepare_EncryptionVariables\n    Aeskey = SessionKey_Entry[\'Key\']#get_random_bytes(16)\n', "TypeError: 'NoneType' object is not subscriptable\n"]
+2016-05-30 19:58:09,710 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 19:58:09,711 - root - ERROR - Variables b'errwewre\n',CB59737D
+2016-05-30 19:58:09,712 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 394, in PrepareFileMessage\n    payload = AESEncMSg(payload, Message.destination)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 19:58:09,712 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 663, in Send_File\n    Message = PrepareFileMessage(data, 0x08)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 394, in PrepareFileMessage\n    payload = AESEncMSg(payload, Message.destination)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 19:58:09,713 - root - ERROR - File Couldn't be Send.
+2016-05-30 20:00:52,091 - root - INFO - Socket Information: ('10.224.1.86', 5555)
+2016-05-30 20:00:52,092 - root - INFO - Preparing GnuPG...
+2016-05-30 20:01:21,520 - root - INFO - Neighboring Message is being prepared...
+2016-05-30 20:01:21,522 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:01:29,578 - root - INFO - Unpacking Message Array...
+2016-05-30 20:01:32,092 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:01:32,098 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 20:01:32,099 - root - INFO - You can start Session Initialization Process with: EC8AF480
+2016-05-30 20:01:32,100 - root - WARNING - This UUID Already Exists
+2016-05-30 20:01:32,102 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:01:32,104 - root - INFO - Session Established with EC8AF480 Waiting For ACK Message...
+2016-05-30 20:01:42,653 - root - INFO - Unpacking Message Array...
+2016-05-30 20:01:42,654 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 20:01:42,655 - root - INFO - You can start Session Initialization Process with: EC8AF480
+2016-05-30 20:01:58,657 - root - INFO - SessionKey Entry cannot be Found...Initialising AUTH Protocol...
+2016-05-30 20:01:58,658 - root - INFO - Setting Passphrase.. This Procedure is one time only...
+2016-05-30 20:02:04,158 - root - INFO - PassPhrase is set!
+2016-05-30 20:02:04,163 - root - INFO - Auth Payload is being prepared...
+2016-05-30 20:02:04,164 - root - INFO - PGP Challenge Encryption Process started...
+2016-05-30 20:02:04,236 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:02:04,247 - root - INFO - Auth Message Sent to: EC8AF480
+2016-05-30 20:02:04,248 - root - INFO - AUTH Sent to: EC8AF480
+2016-05-30 20:02:04,248 - root - INFO - AUTH Protocol is taking place for : kaan
+2016-05-30 20:02:08,249 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 20:02:12,978 - root - INFO - Unpacking Message Array...
+2016-05-30 20:02:12,979 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 20:02:12,979 - root - INFO - You can start Conversation with: EC8AF480
+2016-05-30 20:04:03,090 - root - INFO - Socket Information: ('10.224.1.86', 5555)
+2016-05-30 20:04:03,093 - root - INFO - Preparing GnuPG...
+2016-05-30 20:04:14,267 - root - INFO - Neighboring Message is being prepared...
+2016-05-30 20:04:14,268 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:04:22,281 - root - INFO - Unpacking Message Array...
+2016-05-30 20:04:31,601 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:04:31,607 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 20:04:31,608 - root - INFO - You can start Session Initialization Process with: EC8AF480
+2016-05-30 20:04:31,609 - root - WARNING - This UUID Already Exists
+2016-05-30 20:04:31,610 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:04:31,612 - root - INFO - Session Established with EC8AF480 Waiting For ACK Message...
+2016-05-30 20:04:42,028 - root - INFO - Unpacking Message Array...
+2016-05-30 20:04:42,029 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 20:04:42,029 - root - INFO - You can start Session Initialization Process with: EC8AF480
+2016-05-30 20:04:46,031 - root - INFO - AUTH Protocol is taking place for : kaana
+2016-05-30 20:04:54,032 - root - INFO - SessionKey Entry cannot be Found...Initialising AUTH Protocol...
+2016-05-30 20:04:54,033 - root - INFO - Setting Passphrase.. This Procedure is one time only...
+2016-05-30 20:04:57,687 - root - INFO - PassPhrase is set!
+2016-05-30 20:04:57,689 - root - INFO - Auth Payload is being prepared...
+2016-05-30 20:04:57,691 - root - INFO - PGP Challenge Encryption Process started...
+2016-05-30 20:04:57,759 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:04:57,772 - root - INFO - Auth Message Sent to: EC8AF480
+2016-05-30 20:04:57,773 - root - INFO - AUTH Sent to: EC8AF480
+2016-05-30 20:04:57,773 - root - INFO - AUTH Protocol is taking place for : kaan
+2016-05-30 20:05:01,773 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 20:05:07,121 - root - INFO - Unpacking Message Array...
+2016-05-30 20:05:07,122 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 20:05:07,122 - root - INFO - You can start Conversation with: EC8AF480
+2016-05-30 20:05:40,772 - root - INFO - File Sending Protocol Initialized for:/home/neslic/Desktop/secret.txt
+2016-05-30 20:05:53,931 - root - INFO - Preparing File Message Packet...
+2016-05-30 20:05:54,473 - root - INFO - Encrypting Message For : 00000000
+2016-05-30 20:05:54,473 - root - INFO - Preparing Encryption Variables for :00000000
+2016-05-30 20:05:54,474 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 127, in Prepare_EncryptionVariables\n    Aeskey = SessionKey_Entry[\'Key\']#get_random_bytes(16)\n', "TypeError: 'NoneType' object is not subscriptable\n"]
+2016-05-30 20:05:54,474 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 20:05:54,474 - root - ERROR - Variables b'errwewre\n',00000000
+2016-05-30 20:05:54,496 - root - INFO - Encrypting Message For : 00000000
+2016-05-30 20:05:54,497 - root - INFO - Preparing Encryption Variables for :00000000
+2016-05-30 20:05:54,497 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 127, in Prepare_EncryptionVariables\n    Aeskey = SessionKey_Entry[\'Key\']#get_random_bytes(16)\n', "TypeError: 'NoneType' object is not subscriptable\n"]
+2016-05-30 20:05:54,498 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 20:05:54,498 - root - ERROR - Variables b'errwewre\n',00000000
+2016-05-30 20:05:54,881 - root - INFO - Encrypting Message For : 00000000
+2016-05-30 20:05:54,881 - root - INFO - Preparing Encryption Variables for :00000000
+2016-05-30 20:05:54,882 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 127, in Prepare_EncryptionVariables\n    Aeskey = SessionKey_Entry[\'Key\']#get_random_bytes(16)\n', "TypeError: 'NoneType' object is not subscriptable\n"]
+2016-05-30 20:05:54,882 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 20:05:54,882 - root - ERROR - Variables b'errwewre\n',00000000
+2016-05-30 20:05:54,894 - root - INFO - Encrypting Message For : 00000000
+2016-05-30 20:05:54,895 - root - INFO - Preparing Encryption Variables for :00000000
+2016-05-30 20:05:54,895 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 127, in Prepare_EncryptionVariables\n    Aeskey = SessionKey_Entry[\'Key\']#get_random_bytes(16)\n', "TypeError: 'NoneType' object is not subscriptable\n"]
+2016-05-30 20:05:54,895 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 20:05:54,896 - root - ERROR - Variables b'errwewre\n',00000000
+2016-05-30 20:05:55,248 - root - INFO - Encrypting Message For : 00000000
+2016-05-30 20:05:55,248 - root - INFO - Preparing Encryption Variables for :00000000
+2016-05-30 20:05:55,248 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 127, in Prepare_EncryptionVariables\n    Aeskey = SessionKey_Entry[\'Key\']#get_random_bytes(16)\n', "TypeError: 'NoneType' object is not subscriptable\n"]
+2016-05-30 20:05:55,250 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 20:05:55,250 - root - ERROR - Variables b'errwewre\n',00000000
+2016-05-30 20:05:55,273 - root - INFO - Encrypting Message For : 00000000
+2016-05-30 20:05:55,273 - root - INFO - Preparing Encryption Variables for :00000000
+2016-05-30 20:05:55,273 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 127, in Prepare_EncryptionVariables\n    Aeskey = SessionKey_Entry[\'Key\']#get_random_bytes(16)\n', "TypeError: 'NoneType' object is not subscriptable\n"]
+2016-05-30 20:05:55,274 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 145, in AESEncMSg\n    AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 20:05:55,274 - root - ERROR - Variables b'errwewre\n',00000000
+2016-05-30 20:05:55,676 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:05:55,676 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:05:55,677 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n']
+2016-05-30 20:05:55,678 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:05:55,689 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:05:55,690 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:05:55,690 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n']
+2016-05-30 20:05:55,691 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:05:56,199 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:05:56,199 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:05:56,200 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n']
+2016-05-30 20:05:56,200 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:05:56,211 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:05:56,211 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:05:56,212 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n']
+2016-05-30 20:05:56,212 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:05:57,279 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:05:57,280 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:05:57,280 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n']
+2016-05-30 20:05:57,280 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:05:57,292 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:05:57,292 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:05:57,293 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n']
+2016-05-30 20:05:57,293 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:05:57,643 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:05:57,644 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:05:57,644 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n']
+2016-05-30 20:05:57,644 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:05:57,671 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:05:57,671 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:05:57,672 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n']
+2016-05-30 20:05:57,672 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:05:57,950 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:05:57,950 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:05:57,951 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n']
+2016-05-30 20:05:57,951 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:05:57,963 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:05:57,963 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:05:57,963 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n']
+2016-05-30 20:05:57,963 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:06:05,261 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:06:05,262 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:06:05,263 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n']
+2016-05-30 20:06:05,264 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:06:23,456 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:06:28,340 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:14:16,285 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', '  File "/home/neslic/Downloads/pycharm-community-2016.1.2/helpers/pydev/_pydevd_bundle/pydevd_frame.py", line 591, in trace_dispatch\n    self.do_wait_suspend(thread, frame, event, arg)\n', '  File "/home/neslic/Downloads/pycharm-community-2016.1.2/helpers/pydev/_pydevd_bundle/pydevd_frame.py", line 67, in do_wait_suspend\n    self._args[0].do_wait_suspend(*args, **kwargs)\n', '  File "/home/neslic/Downloads/pycharm-community-2016.1.2/helpers/pydev/pydevd.py", line 712, in do_wait_suspend\n    time.sleep(0.01)\n', 'KeyboardInterrupt\n']
+2016-05-30 20:14:16,285 - root - ERROR - Variables b'errwewre\n',EC8AF480
+2016-05-30 20:14:16,286 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 393, in PrepareFileMessage\n    payload = AESEncMSg(payload, Message.destination)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', '  File "/home/neslic/Downloads/pycharm-community-2016.1.2/helpers/pydev/_pydevd_bundle/pydevd_frame.py", line 591, in trace_dispatch\n    self.do_wait_suspend(thread, frame, event, arg)\n', '  File "/home/neslic/Downloads/pycharm-community-2016.1.2/helpers/pydev/_pydevd_bundle/pydevd_frame.py", line 67, in do_wait_suspend\n    self._args[0].do_wait_suspend(*args, **kwargs)\n', '  File "/home/neslic/Downloads/pycharm-community-2016.1.2/helpers/pydev/pydevd.py", line 712, in do_wait_suspend\n    time.sleep(0.01)\n', 'KeyboardInterrupt\n']
+2016-05-30 20:14:16,286 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 662, in Send_File\n    Message = PrepareFileMessage(data, 0x08, destination)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 393, in PrepareFileMessage\n    payload = AESEncMSg(payload, Message.destination)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 146, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', '  File "/home/neslic/Downloads/pycharm-community-2016.1.2/helpers/pydev/_pydevd_bundle/pydevd_frame.py", line 591, in trace_dispatch\n    self.do_wait_suspend(thread, frame, event, arg)\n', '  File "/home/neslic/Downloads/pycharm-community-2016.1.2/helpers/pydev/_pydevd_bundle/pydevd_frame.py", line 67, in do_wait_suspend\n    self._args[0].do_wait_suspend(*args, **kwargs)\n', '  File "/home/neslic/Downloads/pycharm-community-2016.1.2/helpers/pydev/pydevd.py", line 712, in do_wait_suspend\n    time.sleep(0.01)\n', 'KeyboardInterrupt\n']
+2016-05-30 20:14:16,286 - root - ERROR - File Couldn't be Send.
+2016-05-30 20:14:32,308 - root - INFO - Socket Information: ('10.224.1.86', 5555)
+2016-05-30 20:14:32,310 - root - INFO - Preparing GnuPG...
+2016-05-30 20:14:48,756 - root - INFO - Neighboring Message is being prepared...
+2016-05-30 20:14:48,760 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:14:56,801 - root - INFO - Unpacking Message Array...
+2016-05-30 20:14:59,125 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:14:59,133 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 20:14:59,134 - root - INFO - You can start Session Initialization Process with: EC8AF480
+2016-05-30 20:14:59,135 - root - WARNING - This UUID Already Exists
+2016-05-30 20:14:59,136 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:14:59,138 - root - INFO - Session Established with EC8AF480 Waiting For ACK Message...
+2016-05-30 20:15:09,971 - root - INFO - Unpacking Message Array...
+2016-05-30 20:15:09,972 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 20:15:09,973 - root - INFO - You can start Session Initialization Process with: EC8AF480
+2016-05-30 20:15:17,975 - root - INFO - SessionKey Entry cannot be Found...Initialising AUTH Protocol...
+2016-05-30 20:15:17,975 - root - INFO - Setting Passphrase.. This Procedure is one time only...
+2016-05-30 20:15:21,689 - root - INFO - PassPhrase is set!
+2016-05-30 20:15:21,691 - root - INFO - Auth Payload is being prepared...
+2016-05-30 20:15:21,691 - root - INFO - PGP Challenge Encryption Process started...
+2016-05-30 20:15:21,766 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 20:15:21,781 - root - INFO - Auth Message Sent to: EC8AF480
+2016-05-30 20:15:21,782 - root - INFO - AUTH Sent to: EC8AF480
+2016-05-30 20:15:21,782 - root - INFO - AUTH Protocol is taking place for : kaan
+2016-05-30 20:15:25,783 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 20:15:30,782 - root - INFO - Unpacking Message Array...
+2016-05-30 20:15:30,783 - root - INFO - SESSION ACK Message from EC8AF480 Processsed!.
+2016-05-30 20:15:30,784 - root - INFO - You can start Conversation with: EC8AF480
+2016-05-30 20:15:51,264 - root - INFO - File Sending Protocol Initialized for:/home/neslic/Desktop/secret.txt
+2016-05-30 20:16:00,279 - root - INFO - Preparing File Message Packet...
+2016-05-30 20:16:13,949 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:13,950 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:18,129 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:18,132 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:18,171 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:18,171 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:18,172 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:18,172 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n", '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 149, in AESEncMSg\n    padMsg = padStr(plainMsg)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 105, in padStr\n    logging.error("Variables : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:18,172 - root - ERROR - Variables b'\xff\x13\xdb\x1d,\x87\x08N\xdeI\x08\xa9\xaa\xbb\x10"{B\x14\xce\xed\x08-4S\x8c\x85\x06\x7f0\x1b\x9f',EC8AF480
+2016-05-30 20:16:18,183 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:18,183 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:18,184 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:18,184 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n", '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 149, in AESEncMSg\n    padMsg = padStr(plainMsg)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 105, in padStr\n    logging.error("Variables : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:18,184 - root - ERROR - Variables b'\xff\x13\xdb\x1d,\x87\x08N\xdeI\x08\xa9\xaa\xbb\x10"{B\x14\xce\xed\x08-4S\x8c\x85\x06\x7f0\x1b\x9f',EC8AF480
+2016-05-30 20:16:20,596 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:20,596 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:20,596 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:20,597 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n", '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 149, in AESEncMSg\n    padMsg = padStr(plainMsg)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 105, in padStr\n    logging.error("Variables : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:20,597 - root - ERROR - Variables b'\xff\x13\xdb\x1d,\x87\x08N\xdeI\x08\xa9\xaa\xbb\x10"{B\x14\xce\xed\x08-4S\x8c\x85\x06\x7f0\x1b\x9f',EC8AF480
+2016-05-30 20:16:20,618 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:20,618 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:20,619 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:20,619 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n", '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 149, in AESEncMSg\n    padMsg = padStr(plainMsg)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 105, in padStr\n    logging.error("Variables : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:20,619 - root - ERROR - Variables b'\xff\x13\xdb\x1d,\x87\x08N\xdeI\x08\xa9\xaa\xbb\x10"{B\x14\xce\xed\x08-4S\x8c\x85\x06\x7f0\x1b\x9f',EC8AF480
+2016-05-30 20:16:21,897 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:21,898 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:21,898 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:21,899 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n", '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 149, in AESEncMSg\n    padMsg = padStr(plainMsg)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 105, in padStr\n    logging.error("Variables : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:21,899 - root - ERROR - Variables b'\xff\x13\xdb\x1d,\x87\x08N\xdeI\x08\xa9\xaa\xbb\x10"{B\x14\xce\xed\x08-4S\x8c\x85\x06\x7f0\x1b\x9f',EC8AF480
+2016-05-30 20:16:21,912 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:21,912 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:21,912 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:21,913 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n", '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 149, in AESEncMSg\n    padMsg = padStr(plainMsg)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 105, in padStr\n    logging.error("Variables : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:21,913 - root - ERROR - Variables b'\xff\x13\xdb\x1d,\x87\x08N\xdeI\x08\xa9\xaa\xbb\x10"{B\x14\xce\xed\x08-4S\x8c\x85\x06\x7f0\x1b\x9f',EC8AF480
+2016-05-30 20:16:22,925 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:22,925 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:22,925 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:22,926 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n", '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 149, in AESEncMSg\n    padMsg = padStr(plainMsg)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 105, in padStr\n    logging.error("Variables : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:22,926 - root - ERROR - Variables b'\xff\x13\xdb\x1d,\x87\x08N\xdeI\x08\xa9\xaa\xbb\x10"{B\x14\xce\xed\x08-4S\x8c\x85\x06\x7f0\x1b\x9f',EC8AF480
+2016-05-30 20:16:22,937 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:22,937 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:22,937 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:22,938 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n", '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 149, in AESEncMSg\n    padMsg = padStr(plainMsg)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 105, in padStr\n    logging.error("Variables : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:22,938 - root - ERROR - Variables b'\xff\x13\xdb\x1d,\x87\x08N\xdeI\x08\xa9\xaa\xbb\x10"{B\x14\xce\xed\x08-4S\x8c\x85\x06\x7f0\x1b\x9f',EC8AF480
+2016-05-30 20:16:33,687 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:33,687 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:33,688 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:33,688 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n", '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 149, in AESEncMSg\n    padMsg = padStr(plainMsg)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 105, in padStr\n    logging.error("Variables : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:33,688 - root - ERROR - Variables b'\xff\x13\xdb\x1d,\x87\x08N\xdeI\x08\xa9\xaa\xbb\x10"{B\x14\xce\xed\x08-4S\x8c\x85\x06\x7f0\x1b\x9f',EC8AF480
+2016-05-30 20:16:33,709 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:33,709 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:16:33,710 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:33,711 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 147, in AESEncMSg\n    padMsg = padStr(bytes(plainMsg, \'utf-8\'))\n', 'TypeError: encoding or errors without a string argument\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 97, in padStr\n    logging.debug("Padding string : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n", '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 149, in AESEncMSg\n    padMsg = padStr(plainMsg)\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 105, in padStr\n    logging.error("Variables : " + str.decode(\'utf-8\'))\n', "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte\n"]
+2016-05-30 20:16:33,711 - root - ERROR - Variables b'\xff\x13\xdb\x1d,\x87\x08N\xdeI\x08\xa9\xaa\xbb\x10"{B\x14\xce\xed\x08-4S\x8c\x85\x06\x7f0\x1b\x9f',EC8AF480
+2016-05-30 20:16:40,116 - root - INFO - Preparing File Message Packet...
+2016-05-30 20:16:40,117 - root - INFO - Encrypting Message For : EC8AF480
+2016-05-30 20:16:40,119 - root - INFO - Preparing Encryption Variables for :EC8AF480
+2016-05-30 20:19:00,421 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 636, in recv_flag\n    data,addr = the_socket.recvfrom(buf)\n', 'BlockingIOError: [Errno 11] Resource temporarily unavailable\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/home/neslic/Desktop/ITC8061/ChatApp/Utils.py", line 636, in recv_flag\n    data,addr = the_socket.recvfrom(buf)\n', 'KeyboardInterrupt\n']
