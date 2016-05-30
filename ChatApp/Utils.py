@@ -835,7 +835,7 @@ def Add_KeyIDTable(remote_UUID):
             username = input('Enter Username for this IP>>')
             keyID_newline = {'User': username, 'UUID': remote_UUID}
             Config.KeyIDs.append(dict(keyID_newline))
-            logging.debug(keyID_newline + "has been added to KeyID Table...")
+            logging.debug(str(keyID_newline) + " has been added to KeyID Table...")
         else:
             logging.warning('This UUID Already Exists')
     except:
@@ -867,7 +867,7 @@ def Print_Table(table):
         exc_type, exc_value, exc_traceback = sys.exc_info()
         logging.error(repr(traceback.format_exception(exc_type, exc_value,
                                                       exc_traceback)))
-        logging.info("Could'nt Print Table!...")
+        logging.info("Couldn't Print Table!...")
         pass
 
 def Get_RecipientInfoFromNick(NickName, SocketData):

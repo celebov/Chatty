@@ -3,7 +3,7 @@
 from socket import *
 import Utils as Util
 import time
-import getpass,re
+import getpass,re, logging, logging.config
 import Configs as Config
 
 print("Welcome to Ultra Needlessly Secure Chat APP.")
@@ -47,12 +47,12 @@ while 1:
                     header = Util.PrepareRandomMessage(None, 0x04, Recipient_Info['UUID'])
                     Util.Send_Message(SocketData['UDPSocket'], Recipient_Info['Socket'], message_text, header)
                 else:
-                    print('AUTH Protocol taking place...')
+                    logging.info('AUTH Protocol is taking place for : ' + recipient_ID)
 
                 # else:
                 # print "Session has not been established!"
     else:
-        print(Config.Tokens[0]["WaitReason"] + " Please Wait.")
+        logging.info(Config.Tokens[0]["WaitReason"] + " Please Wait.")
     # Receive Message
     received_data,remote_addr = Util.recv_flag(SocketData['UDPSocket'], SocketData['UDPBuff'])
     if not received_data:
@@ -62,6 +62,7 @@ while 1:
 
         #ADDNEIGH Message
         if received_messages[0].type == Util.MessageTypes.Auth.value and received_messages[0].flag == 0x01:
+
             Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Config.RoutingTable[0]['UUID'])
             header = Util.PrepareNeighborMessage(0x02)  # 0x02 => AuthSuccess flag
             Util.Send_Message(SocketData['UDPSocket'], remote_addr, None, header)
@@ -77,6 +78,7 @@ while 1:
                                  source_UUID)
         #ACK0 Message (NEIGH)
         if received_messages[0].type == Util.MessageTypes.Control.value and received_messages[0].flag == 0x04:
+            logging.debug("Neighboring ACK Message received from: " + bytearray(received_messages[0].source).hex().upper())
             if Util.SearchDictionary(Config.NeighborTable,bytearray(received_messages[0].source).hex().upper(), 'UUID') is None:
                 remote_UUID = bytearray(received_messages[0].source).hex().upper()
                 Util.Add_KeyIDTable(remote_UUID)
@@ -84,11 +86,10 @@ while 1:
                         'PassiveTimer': time.time()}
                 Config.NeighborTable.append(dict(neighbour_newline))
                 Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Config.RoutingTable[0]['UUID'])
-                print('Added to Neigh. Table.')
-                Util.Print_Table(Config.KeyIDs)
-            Util.Tokens[0]["WaitForListening"] = 0;
-            Util.Tokens[0]["WaitReason"] = None;
-            print('ACK0 Received')
+                logging.debug("KeyID Table : " + str(Config.KeyIDs))
+            Config.Tokens[0]["WaitForListening"] = 0;
+            Config.Tokens[0]["WaitReason"] = None;
+            logging.info("NEIGHBORING ACK Message from " + bytearray(received_messages[0].source).hex().upper() + " Processsed!." )
 
             #ACK1 Message (NEIGH)
             if len(received_messages) > 1 and received_messages[1].type == Util.MessageTypes.Auth.value and received_messages[1].flag == 0x02:
@@ -96,9 +97,9 @@ while 1:
                 Util.Add_KeyIDTable(remote_UUID)
                 newline = {'UUID':bytearray(received_messages[0].source).hex().upper(), 'Socket': remote_addr, 'PassiveTimer': time.time()}
                 Config.NeighborTable.append(dict(newline))
-                print('Added to Neigh. Table.')
+                logging.debug("Neigh Table : " + str(Config.NeighborTable))
                 Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Config.RoutingTable[0]['UUID'])
-                print('Session Established') #WAITING ACK!!!!
+                logging.info('Session Established with ' + bytearray(received_messages[1].source).hex().upper()) #WAITING ACK!!!!
                 continue
         if received_messages[0].type == 16:
             Util.WritePacketsToFile(received_messages)
