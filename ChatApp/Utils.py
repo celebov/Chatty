@@ -121,7 +121,7 @@ def unpadStr(str):
 
 
 def Prepare_EncryptionVariables(receiver_UUID):
-    logging.Info("Preparing Encryption Variables for :" + receiver_UUID)
+    logging.info("Preparing Encryption Variables for :" + receiver_UUID)
     try:
         SessionKey_Entry = SearchDictionary(Config.SessionKeyTable, receiver_UUID, 'UUID')
         Aeskey = SessionKey_Entry['Key']#get_random_bytes(16)
@@ -134,7 +134,7 @@ def Prepare_EncryptionVariables(receiver_UUID):
         exc_type, exc_value, exc_traceback = sys.exc_info()
         logging.error(repr(traceback.format_exception(exc_type, exc_value,
                                                       exc_traceback)))
-        raise
+        
 
 def AESEncMSg(plainMsg, receiver_UUID):
     receiver_UUID = bytearray(receiver_UUID).hex().upper()
@@ -332,7 +332,7 @@ def PrepareMessage(version, source, destination, _type, flag, payload, hop_count
         if payload is None:
             Message.payload = bytes('', 'utf8')
         else:
-            if type == MessageTypes.Data.value and ( Message.flag == 4 or Message.flag == 5 or Message.flag == 8 or Message.flag == 9):
+            if Message.type == MessageTypes.Data.value and ( Message.flag == 4 or Message.flag == 5 or Message.flag == 8 or Message.flag == 9):
                 payload = AESEncMSg(payload, Message.destination)
             else:
                 payload = str(payload)
@@ -415,9 +415,9 @@ def Send_AuthMessage(socket, addr, destination):
 def PrepareAuthenticationPayload(receiver_UUID):
     try:
         logging.info("Auth Payload is being prepared...")
-        rec_id = receiver_UUID  # input('Type recipients public key id >> ')
+        # input('Type recipients public key id >> ')
         myPP = Config.passphrase
-        AuthMessagetoSend, challenge = PGPEncMsg(rec_id, myPP)
+        AuthMessagetoSend, challenge = PGPEncMsg(receiver_UUID, myPP)
         Session_Key_Entry = {'Key': challenge, 'UUID': receiver_UUID}
         Config.SessionKeyTable.append(dict(Session_Key_Entry))
         logging.debug("SessionKeyTable : " + str(Config.SessionKeyTable))
@@ -801,6 +801,10 @@ def Get_AuthMessage(UDPSocket,UDPaddr,remote_addr,msg, sender_UUID):
                                                       exc_traceback)))
         logging.info("Auth Message Couldn't be received!...")
         pass
+    finally:
+        logging.info("Waiting Token Changed to 0")
+        Config.Tokens[0]["WaitForListening"] = 0;
+        Config.Tokens[0]["WaitReason"] = None;
 
 def Send_ACKMessage(UDPSocket, remote_addr,sender_UUID):
     try:

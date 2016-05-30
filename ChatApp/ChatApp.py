@@ -90,7 +90,11 @@ while 1:
                 logging.debug("KeyID Table : " + str(Config.KeyIDs))
             Config.Tokens[0]["WaitForListening"] = 0;
             Config.Tokens[0]["WaitReason"] = None;
-            logging.info("NEIGHBORING ACK Message from " + bytearray(received_messages[0].source).hex().upper() + " Processsed!. You Can Start Session Initialization Protocol." )
+            logging.info("SESSION ACK Message from " + bytearray(received_messages[0].source).hex().upper() + " Processsed!." )
+            if Util.SearchDictionary(Config.SessionKeyTable, bytearray(received_messages[0].source).hex().upper(), 'UUID') is None:
+                logging.info("You can start Session Initialization Process with: " + bytearray(received_messages[0].source).hex().upper())
+            else:
+                logging.info("You can start Conversation with: " + bytearray(received_messages[0].source).hex().upper())
 
             #ACK1 Message (NEIGH)
             if len(received_messages) > 1 and received_messages[1].type == Util.MessageTypes.Auth.value and received_messages[1].flag == 0x02:
