@@ -31,7 +31,14 @@ while 1:
                     UDPaddr = (remote_ip, SocketData['UDPaddr'][1])
                     Util.Send_Message(SocketData['UDPSocket'], UDPaddr, None, header)
             elif "#FILE" in user_input:
-                 Util.Send_File(SocketData['UDPSocket'], SocketData['remote_addr'], user_input[5:].strip())
+                 user = input("Which User Will Receive the File => ")
+                 path = input("Enter File Path =>")
+                 Recipient_Info, isNode = Util.Get_RecipientInfoFromNick(user, SocketData['UDPSocket'])
+                 if Recipient_Info is None or isnode == False:
+                     logging.warning("Recipient can not be found.")
+                     print("Wrong User Info. Please Check username or establish Session...")
+                 else:
+                    Util.Send_File(SocketData['UDPSocket'], Recipient_Info['Socket'], user_input[5:].strip())
             elif "#ROUT" in user_input:
                 destination = input('»Destination Username: ')
                 Entry, isnode = Util.Get_RecipientInfoFromNick(destination, SocketData['UDPSocket'])
@@ -106,16 +113,18 @@ while 1:
                 Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Config.RoutingTable[0]['UUID'])
                 logging.info('Session Established with ' + bytearray(received_messages[1].source).hex().upper() + " Waiting For ACK Message...") #WAITING ACK!!!!
                 continue
-        if received_messages[0].type == 16:
+        #Receive File
+        if received_messages[0].type == 1 and (received_messages[0].flag == 8 or received_messages[0].flag == 9):
             Util.WritePacketsToFile(received_messages)
             continue
+
         elif received_messages[0].type == 1 and (received_messages[0].flag == 33 or received_messages[0].flag == 32):
             Util.Get_RoutingTable(Util.ConcatMessages(received_messages),bytearray(received_messages[0].source).hex().upper())
             continue
-            # End Receiving Message
+
         elif received_messages[0].type == Util.MessageTypes.Data.value and received_messages[0].flag != 16:
             encrypted_text = Util.ConcatMessages(received_messages)
             print("Received message '", encrypted_text, "'")
             continue
-
+# End Receiving Message
 SocketData['UDPSocket'].close()

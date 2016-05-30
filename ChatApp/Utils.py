@@ -649,13 +649,13 @@ def Send_File(socket, addr, path):
         f = open(path, "rb")
         data = f.read(MessageClass.payload.size)
         while (data):
-            Message = PrepareFileMessage(data, 0)
+            Message = PrepareFileMessage(data, 0x08)
             if (socket.sendto(Message, addr)):
                 print("Sending ...")
                 data = f.read(MessageClass.payload.size)
                 progress = progress + bar_rate
                 Update_Progress(progress / 100.0)
-        Message = PrepareFileMessage("", 1)
+        Message = PrepareFileMessage("", 0x09)
         socket.sendto(Message, addr)
         progress = progress + bar_rate
         Update_Progress(progress / 100.0)
