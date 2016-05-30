@@ -77,7 +77,8 @@ def Prepare_Debugstring(list):
 setup_logging()
 
 def SearchDictionary(values, searchFor, key):
-    logging.debug('Searching Dictionary : ' + values + "\n" + "Search=> " + searchFor +"\n" + "Key=>" + key)
+    variable_list = [values, searchFor, key]
+    logging.debug('Searching Dictionary : ' + Prepare_Debugstring(variable_list))
     try:
         for k in values:
             if searchFor == k[key]:
@@ -125,7 +126,7 @@ def Prepare_EncryptionVariables(receiver_UUID):
         SessionKey_Entry = SearchDictionary(Config.SessionKeyTable, receiver_UUID, 'UUID')
         Aeskey = SessionKey_Entry['Key']#get_random_bytes(16)
         iv = get_random_bytes(16)
-        variable_list = {SessionKey_Entry, str(Aeskey), str(iv)}
+        variable_list = [SessionKey_Entry, str(Aeskey), str(iv)]
         debugstring = Prepare_Debugstring(variable_list)
         logging.debug("Encryption " + debugstring)
         return Aeskey,iv
@@ -137,14 +138,14 @@ def Prepare_EncryptionVariables(receiver_UUID):
 
 def AESEncMSg(plainMsg, receiver_UUID):
     receiver_UUID = bytearray(receiver_UUID).hex().upper()
-    variable_list = {plainMsg, receiver_UUID}
+    variable_list = [plainMsg, receiver_UUID]
     logging.info("Encrypting Message For : " + receiver_UUID)
     try:
         logging.debug("Encrypting Message... " + Prepare_Debugstring(variable_list))
         AESkey,iv = Prepare_EncryptionVariables(receiver_UUID)
         padMsg = padStr(bytes(plainMsg, 'utf-8'))
         cipher = AES.new(AESkey, AES.MODE_CBC, iv)
-        variable_list = {AESkey,iv,padMsg,cipher}
+        variable_list = [AESkey,iv,padMsg,cipher]
         logging.debug("Encrypted with : " + Prepare_Debugstring(variable_list))
         return (iv + cipher.encrypt(padMsg))
     except:
@@ -156,7 +157,7 @@ def AESEncMSg(plainMsg, receiver_UUID):
 
 def AESDecMSg(sender_UUID, ciphertext):
     sender_UUID = bytearray(sender_UUID).hex().upper()
-    variable_list = {sender_UUID, ciphertext}
+    variable_list = [sender_UUID, ciphertext]
     logging.info("Decrypting Message From : " + sender_UUID)
     try:
         logging.debug("Decrypting Message... " + Prepare_Debugstring(variable_list))
@@ -167,7 +168,7 @@ def AESDecMSg(sender_UUID, ciphertext):
         decipher = AES.new(Aeskey, AES.MODE_CBC, iv)
         deciphertext = decipher.decrypt(ciphertext)
         deciphertext = unpadStr(deciphertext)
-        variable_list = {SessionKey_Entry, Aeskey, ciphertext, decipher, deciphertext}
+        variable_list = [SessionKey_Entry, Aeskey, ciphertext, decipher, deciphertext]
         logging.debug("Encrypted with : " + Prepare_Debugstring(variable_list))
         return(deciphertext)
     except:
@@ -350,7 +351,7 @@ def PrepareMessage(version, source, destination, _type, flag, payload, hop_count
 
 def PrepareRandomMessage(payload, flag , destination):
     try:
-        variable_list = {payload, flag,destination}
+        variable_list = [payload, flag,destination]
         logging.debug("Preparing Random Message Packet Header with " + Prepare_Debugstring(variable_list))
         Message = MessageClass()
         Message.version = 1
@@ -397,7 +398,7 @@ def PrepareFileMessage(payload, flag):
 
 def Send_AuthMessage(socket, addr, destination):
     try:
-        variable_list = {socket, addr,destination}
+        variable_list = [socket, addr,destination]
         logging.debug("Auth Message Sending Protocol Initialized with " + Prepare_Debugstring(variable_list))
 
         auth_payload = PrepareAuthenticationPayload(destination)
@@ -454,7 +455,7 @@ def PGPDecMsg(enc_aut_msg, recPP):
 
 def PrepareAuthMessage(payload, destination, flag):
     try:
-        variable_list = {payload,destination,flag}
+        variable_list = [payload,destination,flag]
         logging.debug("Auth Message is being prepared with " + Prepare_Debugstring(variable_list))
         Message = MessageClass()
         Message.version = 1
@@ -517,7 +518,7 @@ def PrepareACKMessage(destination):
 def Send_Message(socket, addr, payload, header):
     try:
         logging.info("Message Sending Protocol Initialized...")
-        variable_list = {socket, addr, payload, header}
+        variable_list = [socket, addr, payload, header]
         logging.debug(Prepare_Debugstring(variable_list))
         messagetosend = ChunkMessages(payload, header)
         for message in messagetosend:
@@ -536,7 +537,7 @@ def Send_Message(socket, addr, payload, header):
 
 def ChunkMessages(payload, header):
     try:
-        variable_list = {payload,header}
+        variable_list = [payload,header]
         logging.debug("Chunking Procedure started for: " + Prepare_Debugstring(variable_list))
         MessageList = []
         if payload is None:
@@ -640,7 +641,7 @@ def recv_flag(the_socket, buf, timeout=2):
 
 def Send_File(socket, addr, path):
     try:
-        variable_list = {socket, addr, path}
+        variable_list = [socket, addr, path]
         logging.debug("File Sending Protocol initialized with: "+ Prepare_Debugstring(variable_list))
         statinfo = os.stat(path)
         bar_rate = 100 / (statinfo.st_size / MessageClass.payload.size)
@@ -739,7 +740,7 @@ def Validate_IPV6(address):
 
 def Send_RoutingTable(socket, addr, receiver_UUID):
     try:
-        variable_list = {socket, addr, receiver_UUID}
+        variable_list = [socket, addr, receiver_UUID]
         logging.debug("Sending Routing Table Protocol initialized with: " + Prepare_Debugstring(variable_list))
         destination = input('>>Destination: ')
         message = PrepareAuthMessage(None, receiver_UUID, 0x20)
@@ -755,7 +756,7 @@ def Send_RoutingTable(socket, addr, receiver_UUID):
 
 def Get_RoutingTable(data, sender_UUID):
     try:
-        variable_list = {eval(data), sender_UUID}
+        variable_list = [eval(data), sender_UUID]
         logging.debug("Receiving Routing Table Protocol initialized with: " + Prepare_Debugstring(variable_list))
         received_RT = eval(data)
         for received_line in enumerate(received_RT):
@@ -803,7 +804,7 @@ def Get_AuthMessage(UDPSocket,UDPaddr,remote_addr,msg, sender_UUID):
 
 def Send_ACKMessage(UDPSocket, remote_addr,sender_UUID):
     try:
-        variable_list = {UDPSocket, remote_addr,sender_UUID}
+        variable_list = [UDPSocket, remote_addr,sender_UUID]
         logging.debug("ACK Message Sending Protocol Initialized with: " + Prepare_Debugstring(variable_list))
         ackmessage = PrepareACKMessage(sender_UUID)
         Send_Message(UDPSocket, remote_addr, None, ackmessage)
@@ -816,7 +817,7 @@ def Send_ACKMessage(UDPSocket, remote_addr,sender_UUID):
 
 def Send_AUTHSUCCEEDEDMessage(UDPSocket, remote_addr,sender_UUID):
     try:
-        variable_list = {UDPSocket, remote_addr, sender_UUID}
+        variable_list = [UDPSocket, remote_addr, sender_UUID]
         logging.debug("ACK Message Sending Protocol Initialized with: " + Prepare_Debugstring(variable_list))
         ackmessage = PrepareACKMessage(sender_UUID)
         Send_Message(UDPSocket, remote_addr, None, ackmessage)
@@ -871,7 +872,7 @@ def Print_Table(table):
 
 def Get_RecipientInfoFromNick(NickName, SocketData):
     try:
-        variable_list = {NickName, SocketData}
+        variable_list = [NickName, SocketData]
         logging.debug("Checking Info on Typed User: " + Prepare_Debugstring(variable_list))
         KeyID_Entry = SearchDictionary(Config.KeyIDs, NickName, 'User')
         Neighbor_Entry = ''

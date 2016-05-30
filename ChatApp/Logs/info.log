@@ -1,0 +1,6 @@
+2016-05-30 15:41:14,468 - root - INFO - Socket Information: ('10.224.0.39', 8888)
+2016-05-30 15:41:24,909 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 626, in recv_flag\n    data,addr = the_socket.recvfrom(buf)\n', 'BlockingIOError: [Errno 11] Resource temporarily unavailable\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 626, in recv_flag\n    data,addr = the_socket.recvfrom(buf)\n', 'KeyboardInterrupt\n']
+2016-05-30 15:42:02,441 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 254, in PrepareSocket\n    UDPSocket.bind(UDPaddr)\n', 'TypeError: string or unicode text buffer expected, not NoneType\n']
+2016-05-30 15:42:21,446 - root - INFO - Socket Information: ('10.224.0.39', 8888)
+2016-05-30 15:45:51,160 - root - INFO - Socket Information: ('10.224.0.39', 8888)
+2016-05-30 15:48:49,827 - root - INFO - Socket Information: ('10.224.0.39', 8888)
