@@ -10,6 +10,7 @@ print("Welcome to Ultra Needlessly Secure Chat APP.")
 print("This is Demonstration Only version. You can Change The logger settings via Logs/Log-Config.json.")
 
 SocketData = Util.PrepareSocket()
+Util.Prepare_GnuPG(None)
 
 Util.Help()
 if len(Config.NeighborTable) == 0:
@@ -66,7 +67,7 @@ while 1:
             Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Config.RoutingTable[0]['UUID'])
             header = Util.PrepareNeighborMessage(0x02)  # 0x02 => AuthSuccess flag
             Util.Send_Message(SocketData['UDPSocket'], remote_addr, None, header)
-            print('Success Message Sent')
+            logging.info('Success Message Sent')
 
         #AUTH Message
         if received_messages[0].type == 1 and received_messages[0].flag == 16:
@@ -89,7 +90,7 @@ while 1:
                 logging.debug("KeyID Table : " + str(Config.KeyIDs))
             Config.Tokens[0]["WaitForListening"] = 0;
             Config.Tokens[0]["WaitReason"] = None;
-            logging.info("NEIGHBORING ACK Message from " + bytearray(received_messages[0].source).hex().upper() + " Processsed!." )
+            logging.info("NEIGHBORING ACK Message from " + bytearray(received_messages[0].source).hex().upper() + " Processsed!. You Can Start Session Initialization Protocol." )
 
             #ACK1 Message (NEIGH)
             if len(received_messages) > 1 and received_messages[1].type == Util.MessageTypes.Auth.value and received_messages[1].flag == 0x02:
@@ -99,7 +100,7 @@ while 1:
                 Config.NeighborTable.append(dict(newline))
                 logging.debug("Neigh Table : " + str(Config.NeighborTable))
                 Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Config.RoutingTable[0]['UUID'])
-                logging.info('Session Established with ' + bytearray(received_messages[1].source).hex().upper()) #WAITING ACK!!!!
+                logging.info('Session Established with ' + bytearray(received_messages[1].source).hex().upper() + " Waiting For ACK Message...") #WAITING ACK!!!!
                 continue
         if received_messages[0].type == 16:
             Util.WritePacketsToFile(received_messages)

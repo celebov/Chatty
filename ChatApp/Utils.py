@@ -9,7 +9,7 @@ from bitstring import *
 import sys, select,binascii, time, sys, os, getpass, fcntl, json, logging, logging.config, gnupg, sys, getpass, traceback
 import Configs as Config
 
-
+gpg = None
 def Prepare_GnuPG(path):
     try:
         global gpg
@@ -420,7 +420,7 @@ def PrepareAuthenticationPayload(receiver_UUID):
         AuthMessagetoSend, challenge = PGPEncMsg(rec_id, myPP)
         Session_Key_Entry = {'Key': challenge, 'UUID': receiver_UUID}
         Config.SessionKeyTable.append(dict(Session_Key_Entry))
-        logging.debug(Config.SessionKeyTable)
+        logging.debug("SessionKeyTable : " + str(Config.SessionKeyTable))
         return AuthMessagetoSend;
     except:
         exc_type, exc_value, exc_traceback = sys.exc_info()

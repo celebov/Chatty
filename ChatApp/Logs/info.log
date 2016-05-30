@@ -84,3 +84,196 @@
 2016-05-30 16:38:16,454 - root - INFO - Message Sending Protocol Initialized...
 2016-05-30 16:38:16,464 - root - INFO - Auth Message Sent to: EC8AF480
 2016-05-30 16:38:42,893 - root - INFO - AUTH Sent to: EC8AF480
+2016-05-30 16:41:41,918 - root - INFO - Socket Information: ('10.224.0.39', 5555)
+2016-05-30 16:41:50,225 - root - INFO - Neighboring Message is being prepared...
+2016-05-30 16:41:50,226 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:41:58,234 - root - INFO - Unpacking Message Array...
+2016-05-30 16:42:01,578 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:42:01,583 - root - INFO - NEIGHBORING ACK Message from EC8AF480 Processsed!.
+2016-05-30 16:42:01,585 - root - WARNING - This UUID Already Exists
+2016-05-30 16:42:01,587 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:42:01,589 - root - INFO - Session Established with EC8AF480
+2016-05-30 16:42:19,789 - root - INFO - Unpacking Message Array...
+2016-05-30 16:42:19,790 - root - INFO - NEIGHBORING ACK Message from EC8AF480 Processsed!.
+2016-05-30 16:42:51,793 - root - INFO - SessionKey Entry cannot be Found...Initialising AUTH Protocol...
+2016-05-30 16:42:51,794 - root - INFO - Setting Passphrase.. This Procedure is one time only...
+2016-05-30 16:43:04,652 - root - INFO - PassPhrase is set!
+2016-05-30 16:43:04,654 - root - INFO - Auth Payload is being prepared...
+2016-05-30 16:43:04,655 - root - INFO - PGP Challenge Encryption Process started...
+2016-05-30 16:43:04,657 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 435, in PGPEncMsg\n    encrypted_challenge = gpg.encrypt(challenge, rec_id).data\n', "NameError: name 'gpg' is not defined\n"]
+2016-05-30 16:43:04,659 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 420, in PrepareAuthenticationPayload\n    AuthMessagetoSend, challenge = PGPEncMsg(rec_id, myPP)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 16:43:04,660 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:43:04,663 - root - INFO - Auth Message Sent to: EC8AF480
+2016-05-30 16:43:04,664 - root - INFO - AUTH Sent to: EC8AF480
+2016-05-30 16:43:04,664 - root - INFO - AUTH Protocol is taking place for : Nesli
+2016-05-30 16:43:08,665 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:43:12,665 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:43:16,666 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:43:20,666 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:43:24,666 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:43:28,667 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:43:32,667 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:43:33,384 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 621, in recv_flag\n    if total_data and Unpack(MessageClass, total_data[-1]).flag == 17 and time.time()-begin>timeout:\n', 'KeyboardInterrupt\n']
+2016-05-30 16:43:50,181 - root - INFO - Socket Information: ('10.224.0.39', 5555)
+2016-05-30 16:44:58,005 - root - INFO - Neighboring Message is being prepared...
+2016-05-30 16:44:58,009 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:45:17,799 - root - INFO - Unpacking Message Array...
+2016-05-30 16:45:24,379 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:45:24,390 - root - INFO - NEIGHBORING ACK Message from EC8AF480 Processsed!.
+2016-05-30 16:45:24,394 - root - WARNING - This UUID Already Exists
+2016-05-30 16:45:24,399 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:45:24,406 - root - INFO - Session Established with EC8AF480
+2016-05-30 16:45:57,982 - root - INFO - Unpacking Message Array...
+2016-05-30 16:45:57,984 - root - INFO - NEIGHBORING ACK Message from EC8AF480 Processsed!.
+2016-05-30 16:46:57,991 - root - INFO - SessionKey Entry cannot be Found...Initialising AUTH Protocol...
+2016-05-30 16:46:57,992 - root - INFO - Setting Passphrase.. This Procedure is one time only...
+2016-05-30 16:47:05,112 - root - INFO - PassPhrase is set!
+2016-05-30 16:47:05,122 - root - INFO - Auth Payload is being prepared...
+2016-05-30 16:47:05,126 - root - INFO - PGP Challenge Encryption Process started...
+2016-05-30 16:47:05,135 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 435, in PGPEncMsg\n    encrypted_challenge = gpg.encrypt(challenge, rec_id).data\n', "NameError: name 'gpg' is not defined\n"]
+2016-05-30 16:47:05,140 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 420, in PrepareAuthenticationPayload\n    AuthMessagetoSend, challenge = PGPEncMsg(rec_id, myPP)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 16:47:05,144 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:47:05,154 - root - INFO - Auth Message Sent to: EC8AF480
+2016-05-30 16:47:05,155 - root - INFO - AUTH Sent to: EC8AF480
+2016-05-30 16:47:05,157 - root - INFO - AUTH Protocol is taking place for : Nesli
+2016-05-30 16:47:09,159 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:13,160 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:17,161 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:21,162 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:25,163 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:29,164 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:33,165 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:37,166 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:41,167 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:45,168 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:49,169 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:53,170 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:47:57,171 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:01,172 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:05,173 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:09,174 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:13,175 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:17,176 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:21,177 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:25,178 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:29,180 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:33,181 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:37,182 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:41,182 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:45,183 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:49,184 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:53,185 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:48:57,186 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:01,188 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:05,189 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:09,190 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:13,190 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:17,192 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:21,193 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:25,195 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:29,196 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:33,197 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:37,198 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:41,199 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:45,200 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:49,201 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:53,202 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:49:57,203 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:01,204 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:05,205 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:09,207 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:13,208 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:17,209 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:21,210 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:25,211 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:29,212 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:33,213 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:37,214 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:41,215 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:45,216 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:49,217 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:53,218 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:50:57,219 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:51:01,220 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:51:05,221 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:51:09,223 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:51:13,224 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:51:17,225 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:51:21,226 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:51:25,227 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:51:29,228 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:51:32,619 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 627, in recv_flag\n    data,addr = the_socket.recvfrom(buf)\n', 'BlockingIOError: [Errno 11] Resource temporarily unavailable\n', '\nDuring handling of the above exception, another exception occurred:\n\n', 'Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 627, in recv_flag\n    data,addr = the_socket.recvfrom(buf)\n', 'KeyboardInterrupt\n']
+2016-05-30 16:51:45,174 - root - INFO - Socket Information: ('10.224.0.39', 5555)
+2016-05-30 16:52:01,869 - root - INFO - Neighboring Message is being prepared...
+2016-05-30 16:52:01,871 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:52:09,891 - root - INFO - Unpacking Message Array...
+2016-05-30 16:52:18,456 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:52:18,467 - root - INFO - NEIGHBORING ACK Message from EC8AF480 Processsed!.
+2016-05-30 16:52:20,768 - root - WARNING - This UUID Already Exists
+2016-05-30 16:52:20,774 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:52:20,783 - root - INFO - Session Established with EC8AF480
+2016-05-30 16:52:40,789 - root - INFO - Unpacking Message Array...
+2016-05-30 16:52:40,791 - root - INFO - NEIGHBORING ACK Message from EC8AF480 Processsed!.
+2016-05-30 16:53:11,969 - root - INFO - SessionKey Entry cannot be Found...Initialising AUTH Protocol...
+2016-05-30 16:53:11,972 - root - INFO - Setting Passphrase.. This Procedure is one time only...
+2016-05-30 16:53:15,824 - root - INFO - PassPhrase is set!
+2016-05-30 16:53:15,830 - root - INFO - Auth Payload is being prepared...
+2016-05-30 16:53:15,832 - root - INFO - PGP Challenge Encryption Process started...
+2016-05-30 16:53:15,838 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 436, in PGPEncMsg\n    encrypted_challenge = gpg.encrypt(challenge, rec_id).data\n', "AttributeError: 'NoneType' object has no attribute 'encrypt'\n"]
+2016-05-30 16:53:15,840 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 420, in PrepareAuthenticationPayload\n    AuthMessagetoSend, challenge = PGPEncMsg(rec_id, myPP)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 16:53:15,843 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:53:15,851 - root - INFO - Auth Message Sent to: EC8AF480
+2016-05-30 16:53:15,852 - root - INFO - AUTH Sent to: EC8AF480
+2016-05-30 16:53:15,854 - root - INFO - AUTH Protocol is taking place for : Nesli
+2016-05-30 16:53:19,855 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:53:23,856 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:53:27,858 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:53:31,859 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:53:35,860 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:53:39,860 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:53:43,861 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:53:47,862 - root - INFO - AUTH Message sent. Waiting for ACK. Please Wait.
+2016-05-30 16:53:51,702 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 623, in recv_flag\n    if total_data and Unpack(MessageClass, total_data[-1]).flag == 17 and time.time()-begin>timeout:\n', 'KeyboardInterrupt\n']
+2016-05-30 16:55:24,537 - root - INFO - Socket Information: ('10.224.0.39', 5555)
+2016-05-30 16:55:33,116 - root - INFO - Neighboring Message is being prepared...
+2016-05-30 16:55:33,118 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:55:41,181 - root - INFO - Unpacking Message Array...
+2016-05-30 16:55:43,915 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:55:43,932 - root - INFO - NEIGHBORING ACK Message from EC8AF480 Processsed!.
+2016-05-30 16:55:43,937 - root - WARNING - This UUID Already Exists
+2016-05-30 16:55:43,943 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:55:43,952 - root - INFO - Session Established with EC8AF480Waiting For ACK Message...
+2016-05-30 16:56:01,962 - root - INFO - Unpacking Message Array...
+2016-05-30 16:56:01,964 - root - INFO - NEIGHBORING ACK Message from EC8AF480 Processsed!.
+2016-05-30 16:56:37,969 - root - INFO - SessionKey Entry cannot be Found...Initialising AUTH Protocol...
+2016-05-30 16:56:37,969 - root - INFO - Setting Passphrase.. This Procedure is one time only...
+2016-05-30 16:56:54,148 - root - INFO - PassPhrase is set!
+2016-05-30 16:56:54,152 - root - INFO - Auth Payload is being prepared...
+2016-05-30 16:57:52,727 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 433, in PGPEncMsg\n    logging.info("PGP Challenge Encryption Process started...")\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 433, in PGPEncMsg\n    logging.info("PGP Challenge Encryption Process started...")\n', '  File "/home/raziel/Downloads/pycharm-community-2016.1.4/helpers/pydev/_pydevd_bundle/pydevd_frame.py", line 492, in trace_dispatch\n    self.do_wait_suspend(thread, frame, event, arg)\n', '  File "/home/raziel/Downloads/pycharm-community-2016.1.4/helpers/pydev/_pydevd_bundle/pydevd_frame.py", line 69, in do_wait_suspend\n    self._args[0].do_wait_suspend(*args, **kwargs)\n', '  File "/home/raziel/Downloads/pycharm-community-2016.1.4/helpers/pydev/pydevd.py", line 712, in do_wait_suspend\n    time.sleep(0.01)\n', 'KeyboardInterrupt\n']
+2016-05-30 16:57:52,728 - root - ERROR - ['Traceback (most recent call last):\n', '  File "/media/raziel/Raziel-HDD/Work/NetworkProtocolDesign/Nesli/ITC8061/ChatApp/Utils.py", line 420, in PrepareAuthenticationPayload\n    AuthMessagetoSend, challenge = PGPEncMsg(rec_id, myPP)\n', "TypeError: 'NoneType' object is not iterable\n"]
+2016-05-30 16:57:52,729 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:57:52,730 - root - INFO - Auth Message Sent to: EC8AF480
+2016-05-30 16:57:52,730 - root - INFO - AUTH Sent to: EC8AF480
+2016-05-30 16:57:52,730 - root - INFO - AUTH Protocol is taking place for : Nesli
+2016-05-30 16:58:07,786 - root - INFO - Socket Information: ('10.224.0.39', 5555)
+2016-05-30 16:58:24,968 - root - INFO - Socket Information: ('10.224.0.39', 5555)
+2016-05-30 16:58:34,059 - root - INFO - Preparing GnuPG...
+2016-05-30 16:59:37,038 - root - INFO - Neighboring Message is being prepared...
+2016-05-30 16:59:37,041 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:59:45,055 - root - INFO - Unpacking Message Array...
+2016-05-30 16:59:49,053 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:59:49,071 - root - INFO - NEIGHBORING ACK Message from EC8AF480 Processsed!. You Can Start Session Initialization Protocol.
+2016-05-30 16:59:49,076 - root - WARNING - This UUID Already Exists
+2016-05-30 16:59:49,081 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 16:59:49,090 - root - INFO - Session Established with EC8AF480 Waiting For ACK Message...
+2016-05-30 17:00:07,795 - root - INFO - Unpacking Message Array...
+2016-05-30 17:00:07,797 - root - INFO - NEIGHBORING ACK Message from EC8AF480 Processsed!. You Can Start Session Initialization Protocol.
+2016-05-30 17:00:15,799 - root - INFO - SessionKey Entry cannot be Found...Initialising AUTH Protocol...
+2016-05-30 17:00:15,800 - root - INFO - Setting Passphrase.. This Procedure is one time only...
+2016-05-30 17:00:18,634 - root - INFO - PassPhrase is set!
+2016-05-30 17:00:18,641 - root - INFO - Auth Payload is being prepared...
+2016-05-30 17:00:23,534 - root - INFO - PGP Challenge Encryption Process started...
+2016-05-30 17:03:15,103 - root - INFO - Message Sending Protocol Initialized...
+2016-05-30 17:03:36,422 - root - INFO - Auth Message Sent to: EC8AF480
+2016-05-30 17:03:41,763 - root - INFO - AUTH Sent to: EC8AF480
+2016-05-30 17:03:57,457 - root - INFO - AUTH Protocol is taking place for : Nesli
