@@ -6,15 +6,16 @@ import time
 import getpass,re
 import Configs as Config
 
+print("Welcome to Ultra Needlessly Secure Chat APP.")
+print("This is Demonstration Only version. You can Change The logger settings via Logs/Log-Config.json.")
+
 SocketData = Util.PrepareSocket()
 
-print("Ready to Chat! Type #HELP for manual.")
-print("#To send file => #FILE <path> ")
-print("#To send text message, enter the desired text directly.")
+Util.Help()
 if len(Config.NeighborTable) == 0:
     print("You dont have any Neighbour, to add use #ADDNEIGH")
 while 1:
-    if Util.Tokens[0]["WaitForListening"] != 1:
+    if Config.Tokens[0]["WaitForListening"] != 1:
         user_input = Util.getLine();
         # Send Message
         if user_input is not None :
@@ -30,12 +31,10 @@ while 1:
                     Util.Send_Message(SocketData['UDPSocket'], UDPaddr, None, header)
             elif "#FILE" in user_input:
                  Util.Send_File(SocketData['UDPSocket'], SocketData['remote_addr'], user_input[5:].strip())
-            elif "#AUTH" in user_input:
-                if Config.passphrase is None:
-                    Config.passphrase =  input('Enter the PassPhrase>>')
-                Util.Send_AuthMessage(SocketData['UDPSocket'], SocketData['remote_addr'])
             elif "#ROUT" in user_input:
-                Util.Send_RoutingTable(SocketData['UDPSocket'], SocketData['remote_addr'])
+                destination = input('»Destination Username: ')
+                Entry, isnode = Util.Get_RecipientInfoFromNick(destination, SocketData['UDPSocket'])
+                Util.Send_RoutingTable(SocketData['UDPSocket'], Entry['Socket'], Entry['UUID'])
             elif user_input:
                 if user_input.split(' ')[0].startswith('#'):
                     recipient_ID = user_input.split(' ')[0].split('#')[1]
@@ -53,7 +52,7 @@ while 1:
                 # else:
                 # print "Session has not been established!"
     else:
-        print(Util.Tokens[0]["WaitReason"] + " Please Wait.")
+        print(Config.Tokens[0]["WaitReason"] + " Please Wait.")
     # Receive Message
     received_data,remote_addr = Util.recv_flag(SocketData['UDPSocket'], SocketData['UDPBuff'])
     if not received_data:
@@ -99,14 +98,13 @@ while 1:
                 Config.NeighborTable.append(dict(newline))
                 print('Added to Neigh. Table.')
                 Util.Send_ACKMessage(SocketData['UDPSocket'], remote_addr, Config.RoutingTable[0]['UUID'])
-                print('Session Established')
+                print('Session Established') #WAITING ACK!!!!
                 continue
         if received_messages[0].type == 16:
             Util.WritePacketsToFile(received_messages)
             continue
-        elif received_messages[0].type == 64:
-            Util.Get_RoutingTable(Util.ConcatMessages(received_messages), received_messages[0].source)
-            print("Received message '", Util.ConcatMessages(received_messages), "'")
+        elif received_messages[0].type == 1 and (received_messages[0].flag == 33 or received_messages[0].flag == 32):
+            Util.Get_RoutingTable(Util.ConcatMessages(received_messages),bytearray(received_messages[0].source).hex().upper())
             continue
             # End Receiving Message
         elif received_messages[0].type == Util.MessageTypes.Data.value and received_messages[0].flag != 16:
