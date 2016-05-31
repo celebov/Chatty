@@ -53,9 +53,9 @@ After Adding Neighbour, you still have to establish a secure session. To do this
 
 Having *Session Established* message, the messages and files you are sending to this user is encrypted.
 
-Type `#<Username> <msg>` to message this user.
+Type `#<Username> <msg>` to message this user and press enter.
 
-To send file, type `#FILE`
+To send file, type `#FILE`and press enter. When you receive a file, received file will be placed under project file on the left side of IDE and named as "ChatAppFile".
 
-To start Routing Table Sharing Protocol type `#ROUT`
+To start Routing Table Sharing Protocol type `#ROUT` and press enter.
 
