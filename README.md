@@ -1,19 +1,19 @@
 # ITC8061
 
 ##Group Members
--Kaan Sadik KARADAG
--Neslisah Celik
--Ilhan Celebi
+1. Kaan Sadik KARADAG
+2. Neslisah Celik
+3. Ilhan Celebi
 
 ##Requirements
--Python 3.5
--GnuPG
--pycrypto 2.6.1 2.6.1
--pycryptodome 3.4 3.4
--pycryptodomex 3.4.2 3.4.2
--python-gnupg 0.3.8 0.3.8
--scapy-python3 0.18 0.18
--bitstring
+- Python 3.5
+- GnuPG
+- pycrypto 2.6.1 2.6.1
+- pycryptodome 3.4 3.4
+- pycryptodomex 3.4.2 3.4.2
+- python-gnupg 0.3.8 0.3.8
+- scapy-python3 0.18 0.18
+- bitstring
 
 ###GnuPG Configuration
 In order to use GnuPG properly, all keys must be imported and trusted.
