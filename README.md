@@ -1,19 +1,19 @@
 # ITC8061
 
 ##Group Members
-Kaan Sadik KARADAG
-Neslisah Celik
-Ilhan Celebi
+-Kaan Sadik KARADAG
+-Neslisah Celik
+-Ilhan Celebi
 
 ##Requirements
-Python 3.5
-GnuPG
-pycrypto 2.6.1 2.6.1
-pycryptodome 3.4 3.4
-pycryptodomex 3.4.2 3.4.2
-python-gnupg 0.3.8 0.3.8
-scapy-python3 0.18 0.18
-bitstring
+-Python 3.5
+-GnuPG
+-pycrypto 2.6.1 2.6.1
+-pycryptodome 3.4 3.4
+-pycryptodomex 3.4.2 3.4.2
+-python-gnupg 0.3.8 0.3.8
+-scapy-python3 0.18 0.18
+-bitstring
 
 ###GnuPG Configuration
 In order to use GnuPG properly, all keys must be imported and trusted.
@@ -47,13 +47,13 @@ Commands are used with `#` in system to make them easier to identify. Type `#HEL
 
 Use `#ADDNEIGH` and follow the instructions to add a neighbor. There are ACK waiting processes, be aware of the directions from console. After having ACK, type the username you want for that user.
 
-From now on you can message this user using `#UserName`
+From now on you can message this user using `#<UserName>`
 
 After Adding Neighbour, you still have to establish a secure session. To do this simply Message the user. This will start Session Establish Process and when console alerts, type in your GPG Passphrase.
 
 Having *Session Established* message, the messages and files you are sending to this user is encrypted.
 
-Type `#Username <msg>` to message this user.
+Type `#<Username> <msg>` to message this user.
 
 To send file, type `#FILE`
 
