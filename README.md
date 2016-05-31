@@ -27,11 +27,11 @@ In order to use GnuPG properly, all keys must be imported and trusted.
 ###Project Configuration
 Project takes care of environment variables via its console, asking to the user.
 
-In order to configure GnuPG for the client, change both UUIDs to your own:
+In order to configure GnuPG for the client, change both UUIDs to your own public key ID:
 
 ```
 RoutingTable = [
-    {'UUID': 'CB59737D', 'ViaUUID': 'CB59737D', 'Cost': 0}
+    {'UUID': 'youronpublickeyidhere', 'ViaUUID': 'youronpublickeyidhere', 'Cost': 0}
 ]
 ```
 Project has an extensive logging system that can also be configured from *Logs/Log-Config.json*
