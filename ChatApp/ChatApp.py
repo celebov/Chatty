@@ -41,7 +41,7 @@ try:
                      else:
                         Util.Send_File(SocketData['UDPSocket'], Recipient_Info['Socket'], path,  Recipient_Info['UUID'])
                 elif "#ROUT" in user_input:
-                    destination = input('»Destination Username: ')
+                    destination = input('Destination Username: ')
                     Entry, isnode = Util.Get_RecipientInfoFromNick(destination, SocketData['UDPSocket'])
                     Util.Send_RoutingTable(SocketData['UDPSocket'], Entry['Socket'], Entry['UUID'])
                 elif user_input:
